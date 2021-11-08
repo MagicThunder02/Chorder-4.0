@@ -51,29 +51,44 @@
   --ion-color-danger-shade: #cf3c4f;
   --ion-color-danger-tint: #ed576b;
 
-  /** dark **/
-  --ion-color-dark: #222428;
-  --ion-color-dark-rgb: 34, 36, 40;
-  --ion-color-dark-contrast: #ffffff;
-  --ion-color-dark-contrast-rgb: 255, 255, 255;
-  --ion-color-dark-shade: #1e2023;
-  --ion-color-dark-tint: #383a3e;
+  // --------------------------------------------
+  // chorder colors
+  // --------------------------------------------
 
-  /** medium **/
-  --ion-color-medium: #92949c;
-  --ion-color-medium-rgb: 146, 148, 156;
-  --ion-color-medium-contrast: #ffffff;
-  --ion-color-medium-contrast-rgb: 255, 255, 255;
-  --ion-color-medium-shade: #808289;
-  --ion-color-medium-tint: #9d9fa6;
+  --ion-color-salmon: #F4647D;
+  --ion-color-salmon-rgb: 244,100,125;
+  --ion-color-salmon-contrast: #000000;
+  --ion-color-salmon-contrast-rgb: 0,0,0;
+  --ion-color-salmon-shade: #d7586e;
+  --ion-color-salmon-tint: #f5748a;
 
-  /** light **/
-  --ion-color-light: #f4f5f8;
-  --ion-color-light-rgb: 244, 245, 248;
+  --ion-color-ruby: #D90429;
+  --ion-color-ruby-rgb: 217,4,41;
+  --ion-color-ruby-contrast: #ffffff;
+  --ion-color-ruby-contrast-rgb: 255,255,255;
+  --ion-color-ruby-shade: #bf0424;
+  --ion-color-ruby-tint: #dd1d3e;
+ 
+  --ion-color-light: #EDF2F4;
+  --ion-color-light-rgb: 237,242,244;
   --ion-color-light-contrast: #000000;
-  --ion-color-light-contrast-rgb: 0, 0, 0;
-  --ion-color-light-shade: #d7d8da;
-  --ion-color-light-tint: #f5f6f9;
+  --ion-color-light-contrast-rgb: 0,0,0;
+  --ion-color-light-shade: #d1d5d7;
+  --ion-color-light-tint: #eff3f5;
+
+  --ion-color-medium: #8D99AE;
+  --ion-color-medium-rgb: 141,153,174;
+  --ion-color-medium-contrast: #000000;
+  --ion-color-medium-contrast-rgb: 0,0,0;
+  --ion-color-medium-shade: #7c8799;
+  --ion-color-medium-tint: #98a3b6;
+
+  --ion-color-dark: #2B2D42;
+  --ion-color-dark-rgb: 43,45,66;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255,255,255;
+  --ion-color-dark-shade: #26283a;
+  --ion-color-dark-tint: #404255;
 }
 
 @media (prefers-color-scheme: dark) {

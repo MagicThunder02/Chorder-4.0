@@ -1,0 +1,30 @@
+<ion-content fullscreen="true">
+
+  <action-buttons [buttons]="buttons"></action-buttons>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let tile of tiles" size="4" class="tile-col">
+
+        <ion-card button="true" (click)="selectTile(tile)" [ngClass]="'tile-card ' + tile.class">
+          {{ tile.name  | musicNotation : notation}}
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row *ngFor="let chord of chords" (click)="openChord(chord)">
+      <ion-col>
+
+        <ion-card class="chord">
+          <ion-card-header>{{ chord  | musicNotation : notation }}</ion-card-header>
+        </ion-card>
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

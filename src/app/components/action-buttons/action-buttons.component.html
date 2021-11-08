@@ -1,0 +1,9 @@
+<ion-grid>
+  <ion-row>
+    <ion-col *ngFor="let button of buttons" [size]="12 / buttons.length">
+      <ion-fab-button size="large" (click)="button.action()" class="action-button" color="ruby">
+        <ion-icon [name]="button.icon"></ion-icon>
+      </ion-fab-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

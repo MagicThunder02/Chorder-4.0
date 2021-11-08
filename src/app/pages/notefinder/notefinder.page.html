@@ -1,0 +1,71 @@
+<ion-content>
+  <action-buttons [buttons]="buttons"></action-buttons>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="title">Notes</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+
+        <swiper [loop]="true" [slidesPerView]="5">
+          <ng-template *ngFor="let note of notes" swiperSlide>
+            <ion-fab-button [ngClass]="'action-button  ' + note.class" (click)="selectTile('note', note.name)">
+              {{ note.name | musicNotation:notation }}
+            </ion-fab-button>
+          </ng-template>
+        </swiper>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="title">Notes</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6" *ngFor="let quality of qualities">
+
+        <ion-card button="true" [ngClass]="'tile-card  ' + quality.class" (click)="selectTile('quality', quality.name)">
+          {{ quality.name | titlecase}}
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="title">Notes</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12/5" *ngFor="let num of numbers">
+
+        <ion-fab-button [ngClass]="'action-button  ' + num.class" (click)="selectTile('num', num.name)">
+          {{ num.name}}
+        </ion-fab-button>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="title">Search</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label>Toggle</ion-label>
+          <ion-toggle (ionChange)="a($event)" slot="end"></ion-toggle>
+        </ion-item>
+
+        <ion-searchbar (ionChange)="a($event)">
+        </ion-searchbar>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

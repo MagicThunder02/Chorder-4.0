@@ -1,0 +1,55 @@
+.chord {
+    margin-top: 0;
+
+    border-radius: 15px;
+    box-shadow: none;
+
+    background: var(--ion-color-light);
+}
+
+ion-card-header {
+    padding: 0;
+    padding-top: 1rem;
+}
+
+ion-card-subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size:medium;
+    color: var(--ion-color-dark);
+}
+
+//header
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: larger;
+    font-weight: bold;
+    color: var(--ion-color-ruby);
+}
+.subtitle {
+    // font-size: large;
+    font-weight: bold;
+}
+
+.detail {
+    --background: var(--ion-color-light);
+    border-right: solid 3px var(--ion-color-medium);
+    border-left: solid 3px var(--ion-color-medium);
+    color: var(--ion-color-dark);
+    
+}
+
+ion-chip {
+    color: var(--ion-color-dark);
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

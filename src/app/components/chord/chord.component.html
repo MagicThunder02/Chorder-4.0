@@ -1,0 +1,183 @@
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ng-container *ngFor="let button of buttons; let i = index">
+        <ion-col [size]="12 / (buttons.length+1)" class="center">
+          <ion-fab-button (click)="button.action()" class="action-button" color="ruby">
+            <ion-icon [name]="button.icon"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+        <ion-col *ngIf="i==0" [size]="12 / (buttons.length + 1)" class="title">
+          {{ chord.symbol | musicNotation : notation }}
+        </ion-col>
+      </ng-container>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-card class="chord" *ngIf="chord">
+
+    <ion-card class="detail">
+      <ion-card-header>
+        <ion-card-subtitle class="subtitle"> {{ 'Name' | uppercase }} </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="4" class="ion-text-left">Full name:</ion-col>
+            <ion-col size="8" class="ion-text-right"> {{ chord.name | musicNotation : notation}} </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="ion-text-left">Quality:</ion-col>
+            <ion-col size="6" class="ion-text-right"> {{ chord.quality }} </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="6" class="ion-text-left">Aliases:</ion-col>
+            <ion-col size="6" class="ion-text-right"> {{ chord.aliases.join(', ') | musicNotation : notation }}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="detail">
+      <ion-card-header>
+        <ion-card-subtitle class="subtitle"> {{ 'Intervals' | uppercase }} </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-grid>
+          <ion-row *ngFor="let note of chord.displayNotes; let i = index">
+            <ion-col size="4" class="ion-text-left">{{ note | musicNotation : notation }}</ion-col>
+            <ion-col size="2" class="ion-text-center"> {{ chord.intervals[i] }} </ion-col>
+            <ion-col size="6" class="ion-text-right"> {{ chord.intervals[i] | intervalTransform }} </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="detail" *ngIf="chord.extensions.length != 0">
+      <ion-card-header>
+        <ion-card-subtitle class="subtitle"> {{ 'Extensions' | uppercase }} </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ng-container *ngIf="!chord.showExtensions">
+                <ion-chip *ngFor="let extension of  chord.extensions.slice(0, 3)" (click)="inputChord(extension)"
+                  outline="true">
+                  <ion-label>{{ extension  | musicNotation : notation}}</ion-label>
+                </ion-chip>
+              </ng-container>
+
+              <ng-container *ngIf="chord.showExtensions">
+                <ion-chip *ngFor="let extension of  chord.extensions" (click)="inputChord(extension)" outline="true">
+                  <ion-label>{{ extension  | musicNotation : notation}}</ion-label>
+                </ion-chip>
+              </ng-container>
+
+              <ion-icon *ngIf="chord.extensions.length > 3" name="ellipsis-horizontal" style="margin-left: 0.5rem;"
+                (click)="chord.showExtensions = !chord.showExtensions"></ion-icon>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="detail" *ngIf="chord.reductions.length != 0">
+      <ion-card-header>
+        <ion-card-subtitle class="subtitle"> {{ 'Reductions' | uppercase }} </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content *ngIf="chord.reductions.length != 0">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ng-container *ngIf="!chord.showReductions">
+                <ion-chip *ngFor="let reduction of  chord.reductions.slice(0, 3)" (click)="inputChord(reduction)"
+                  outline="true">
+                  <ion-label>{{ reduction  | musicNotation : notation}}</ion-label>
+                </ion-chip>
+              </ng-container>
+
+              <ng-container *ngIf="chord.showReductions">
+                <ion-chip *ngFor="let reduction of  chord.reductions" (click)="inputChord(reduction)" outline="true">
+                  <ion-label>{{ reduction  | musicNotation : notation}}</ion-label>
+                </ion-chip>
+              </ng-container>
+
+              <ion-icon *ngIf="chord.reductions.length > 3" name="ellipsis-horizontal" style="margin-left: 0.5rem;"
+                (click)="chord.showReductions = !chord.showReductions"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+
+    <ion-card class="detail">
+      <ion-card-header>
+        <ion-card-subtitle class="subtitle"> {{ 'Transpose' | uppercase }} </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3" class="center">
+              <ion-fab-button (click)="transposeDown()" class="action-button" color="ruby">
+                <ion-icon name="remove"></ion-icon>
+              </ion-fab-button>
+            </ion-col>
+            <ion-col size="6" class="center">
+
+              <ion-chip (click)="inputChord(chord.transposition)" color="dark" outline="true">
+                {{ chord.transposition | musicNotation : notation}}
+              </ion-chip>
+
+            </ion-col>
+            <ion-col size="3" class="center">
+              <ion-fab-button (click)="transposeUp()" class="action-button" color="ruby">
+                <ion-icon name="add"></ion-icon>
+              </ion-fab-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="detail">
+      <ion-card-header>
+        <ion-card-subtitle class="subtitle"> {{ 'Play' | uppercase }} </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+
+              <swiper [slidesPerView]="3" [loop]="false">
+                <ng-template *ngFor="let instrument of instruments" swiperSlide>
+                  <ion-fab-button [ngClass]="'action-button tile-' + instrument.color" [color]="instrument.color"
+                    (click)="playChord(instrument)">
+                    <ion-icon size="large" src="assets/instruments-icons/{{instrument.color}}/{{instrument.name}}.svg">
+                    </ion-icon>
+
+                  </ion-fab-button>
+
+
+                </ng-template>
+
+              </swiper>
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </ion-card>
+
+</ion-content>

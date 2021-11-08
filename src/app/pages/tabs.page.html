@@ -1,0 +1,13 @@
+<ion-tabs>
+
+  <ion-tab-bar slot="bottom">
+
+    <ion-tab-button *ngFor="let tabPage of tabPages" [tab]="tabPage.tab">
+      <ion-icon [name]="tabPage.icon" size="small"></ion-icon>
+      <ion-label> {{ tabPage.title }}</ion-label>
+    </ion-tab-button>
+
+
+  </ion-tab-bar>
+
+</ion-tabs>
