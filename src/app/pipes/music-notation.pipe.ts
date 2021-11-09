@@ -28,6 +28,7 @@ export class MusicNotationPipe implements PipeTransform {
       }
       value = value.replaceAll('b', '\u266D');
       value = value.replaceAll('#', '\u266F');
+      value = value.replaceAll('^', '\u0394');
 
       return value;
     }

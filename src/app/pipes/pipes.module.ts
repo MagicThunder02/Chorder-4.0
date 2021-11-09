@@ -5,7 +5,11 @@ import { IntervalPipe } from './interval.pipe';
 import { AccidentPipe } from './accident';
 
 @NgModule({
-  declarations: [MusicNotationPipe, IntervalPipe, AccidentPipe],
+  declarations: [
+    MusicNotationPipe,
+    IntervalPipe,
+    AccidentPipe
+  ],
   imports: [
     CommonModule
   ],

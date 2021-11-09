@@ -47,3 +47,18 @@
     font-weight: 600;
     color: var(--ion-color-dark);
 }
+
+.chord {
+    margin: 0;
+
+    font-size: larger;
+    font-weight: 600;
+    color: var(--ion-color-dark);
+
+    border-radius: 15px;
+    box-shadow: none;
+
+    --background: var(--ion-color-light);
+    border: solid 3px var(--ion-color-ruby);
+ 
+}

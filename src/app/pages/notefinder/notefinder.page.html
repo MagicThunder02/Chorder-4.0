@@ -8,7 +8,7 @@
     <ion-row>
       <ion-col size="12">
 
-        <swiper [loop]="true" [slidesPerView]="5">
+        <swiper [loop]="true" [slidesPerView]="5" #swiper>
           <ng-template *ngFor="let note of notes" swiperSlide>
             <ion-fab-button [ngClass]="'action-button  ' + note.class" (click)="selectTile('note', note.name)">
               {{ note.name | musicNotation:notation }}
@@ -56,15 +56,24 @@
     </ion-row>
     <ion-row>
       <ion-col size="12">
-        <ion-item>
-          <ion-label>Toggle</ion-label>
-          <ion-toggle (ionChange)="a($event)" slot="end"></ion-toggle>
-        </ion-item>
 
-        <ion-searchbar (ionChange)="a($event)">
+        <ion-searchbar [(ngModel)]="selectedParam.search" (ionChange)="searchChord()" debounce="150">
         </ion-searchbar>
 
       </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row *ngFor="let chord of chords" (click)="openChord(chord.symbol)">
+      <ion-col>
+
+        <ion-card class="chord">
+          <ion-card-header>{{ chord.symbol  | musicNotation : notation }}</ion-card-header>
+        </ion-card>
+
+      </ion-col>
+
     </ion-row>
   </ion-grid>
 

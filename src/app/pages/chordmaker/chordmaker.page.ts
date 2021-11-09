@@ -10,6 +10,9 @@ import { ChordComponent } from 'src/app/components/chord/chord.component';
 })
 export class ChordmakerPage implements OnInit {
 
+  //-------------------------------------------------------------------
+  // action buttons
+  //-------------------------------------------------------------------
   public buttons = [
     {
       name: 'random',
@@ -43,7 +46,7 @@ export class ChordmakerPage implements OnInit {
   }
 
   //-------------------------------------------------------------------
-  // generate the tiles
+  // genera le tiles
   //-------------------------------------------------------------------
   public initTiles() {
     let scale = ["Cb", "C", "C#", "Db", "D", "D#", "Eb", "E", "E#", "Fb", "F", "F#", "Gb", "G", "G#", "Ab", "A", "A#", "Bb", "B", "B#"]
@@ -53,18 +56,22 @@ export class ChordmakerPage implements OnInit {
   }
 
   //-------------------------------------------------------------------
-  // action buttons
+  // sceglie una combinazione di tiles che diano un'accordo casuale
   //-------------------------------------------------------------------
   public randomizeTiles() {
     console.log('randomize!');
+
+    //inizializzo gli array
     this.chords = [];
     this.selectedTiles = [];
 
+    //creo un array temporaneo dove mischiare le tiles
     let tmpArray = []
     this.tiles.forEach(tile => tmpArray.push(tile))
 
     //finche non trova un accordo
     while (this.chords.length == 0) {
+
       //ordina casualmente le tiles
       let shuffled = tmpArray.sort(() => 0.5 - Math.random());
 
@@ -81,36 +88,40 @@ export class ChordmakerPage implements OnInit {
       let chord = Chord.detect(notes).concat(Chord.detect(simplifiedNotes))
       console.log(chord);
 
-
-
+      //toglie i duplicati
       if (chord) {
         this.chords = [...new Set(chord)]
       }
 
     }
 
+    //colora le caselle selezionate a caso
     this.colorTiles();
   }
 
+  //-------------------------------------------------------------------
+  // cancella tutte le selezioni
+  //-------------------------------------------------------------------
   public deleteTiles() {
     this.selectedTiles = [];
     this.chords = [];
     this.colorTiles();
     console.log('delete!');
   }
+  //-------------------------------------------------------------------
+  // cambia notazione
+  //-------------------------------------------------------------------
   public translateTiles() {
     console.log('translate!');
     this.notation = !this.notation;
   }
   public goToInfo() {
     console.log('info!');
-
   }
 
   //------------------------------------
   // tile functions
   //------------------------------------
-
   public selectTile(tile) {
     this.toggleTile(tile);
     this.checkEqualTile();
@@ -128,7 +139,9 @@ export class ChordmakerPage implements OnInit {
     }
   }
 
-  //check if two note with the same value are both checked, if yes deselects the last selected one
+  //-------------------------------------------------------------------
+  // impedisce la selezione di due note con lo stesso valore (es Cb, B)
+  //-------------------------------------------------------------------
   public checkEqualTile() {
 
     this.selectedTiles.forEach((selectedTile) => {
@@ -148,15 +161,14 @@ export class ChordmakerPage implements OnInit {
 
   }
 
-  //color the tiles if selected
+  //-------------------------------------------------------------------
+  // colora le tiles selezionate
+  //-------------------------------------------------------------------
   public colorTiles() {
 
     this.tiles.forEach(tile => {
       tile.class = "tile-light";
     })
-
-
-
     this.selectedTiles.forEach((selectedTile, idx) => {
       let found = this.tiles.find(tile => tile.name == selectedTile.name)
 
@@ -170,31 +182,32 @@ export class ChordmakerPage implements OnInit {
     })
   }
 
-
+  //-------------------------------------------------------------------
+  // trova l'accordo
+  //-------------------------------------------------------------------
   public findChord() {
     this.chords = [];
 
-    //il filtro è la prima nota premuta
-    // if (this.selectedTiles[0]) {
-    //   filter = this.selectedTiles[0].name;
-    // }
-
+    //estrae le note selezionate dalle tiles e le mette anche semplificate in un altra proprieta di chord
     let notes: string[] = this.selectedTiles.map(tile => tile.name);
     let simplifiedNotes: string[] = this.selectedTiles.map(tile => Note.simplify(tile.name));
 
-
+    //se ci sono più di due note allora cerca l'accordo sia con le note normali che con le note semplificate
     if (notes.length >= 2) {
       this.chords = Chord.detect(notes).concat(Chord.detect(simplifiedNotes));
+      //rimuove i duplicati
       this.chords = [...new Set(this.chords)];
 
       console.log(this.chords);
-
     }
     else {
       this.chords = [];
     }
   }
 
+  //-------------------------------------------------------------------
+  //apre la modal con il nuovo accordo
+  //-------------------------------------------------------------------
   public inputChord(chordName) {
     this.modalController.dismiss();
     this.openChord(chordName)

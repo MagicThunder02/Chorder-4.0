@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ChordType } from '@tonaljs/tonal';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { Chord, ChordType } from '@tonaljs/tonal';
+import { ChordComponent } from 'src/app/components/chord/chord.component';
+import { SwiperComponent } from 'swiper/angular';
 
 @Component({
   selector: 'app-notefinder',
@@ -7,7 +10,11 @@ import { ChordType } from '@tonaljs/tonal';
   styleUrls: ['./notefinder.page.scss'],
 })
 export class NotefinderPage implements OnInit {
+  @ViewChild('swiper', { static: false }) swiper?: SwiperComponent;
 
+  //-------------------------------------------------------------------
+  // action buttons
+  //-------------------------------------------------------------------
   public buttons = [
     {
       name: 'random',
@@ -31,6 +38,9 @@ export class NotefinderPage implements OnInit {
     }
   ]
 
+  //-------------------------------------------------------------------
+  // note
+  //-------------------------------------------------------------------
   public notes = [
     { name: 'Cb', class: 'tile-light' },
     { name: 'C', class: 'tile-light' },
@@ -55,6 +65,9 @@ export class NotefinderPage implements OnInit {
     { name: 'B#', class: 'tile-light' },
   ]
 
+  //-------------------------------------------------------------------
+  // qualità possibili
+  //-------------------------------------------------------------------
   public qualities = [
     { name: 'major', class: 'tile-light' },
     { name: 'minor', class: 'tile-light' },
@@ -62,6 +75,9 @@ export class NotefinderPage implements OnInit {
     { name: 'diminished', class: 'tile-light' },
   ]
 
+  //-------------------------------------------------------------------
+  // grado possibile 
+  //-------------------------------------------------------------------
   public numbers = [
     { name: '5', class: 'tile-light' },
     { name: '7', class: 'tile-light' },
@@ -79,30 +95,101 @@ export class NotefinderPage implements OnInit {
 
   public chords: any[] = [];
 
-  public notation: boolean = false
+  public notation: boolean = false;
 
 
-  constructor() { }
+  constructor(private modalController: ModalController) { }
 
   //-------------------------------------------------------------------
-  // action buttons
+  // sceglie dei parametri casuali per trovare degli accordi
   //-------------------------------------------------------------------
   public randomizeTiles() {
-    console.log('randomize!');
+    console.log('randomize!', this.chords.length);
+
+    this.chords = []
+
+    //finche non trova almeno un accordo
+    while (this.chords.length == 0) {
+
+      //crea gli array per fare il sort 
+      let tmpNotes = [];
+      this.notes.forEach(note => {
+        tmpNotes.push(note)
+      });
+      tmpNotes.sort(() => 0.5 - Math.random());
+
+      let tmpQualities = [];
+      this.qualities.forEach(note => {
+        tmpQualities.push(note)
+      });
+      tmpQualities.sort(() => 0.5 - Math.random());
+
+      let tmpNUmbers = [];
+      this.numbers.forEach(note => {
+        tmpNUmbers.push(note)
+      });
+      tmpNUmbers.sort(() => 0.5 - Math.random());
+
+      //imposta i parametri
+      this.selectedParam = {
+        note: tmpNotes[0].name,
+        quality: tmpQualities[0].name,
+        num: tmpNUmbers[0].name,
+        search: ''
+      }
+
+      //cerca gli accordi
+      this.searchChord()
+
+    }
+
+    //trova l'indice della nota nelle slides
+    let idx = this.notes.findIndex(note => note.name == this.selectedParam.note)
+    //posiziona swiper in modo che la nota selezionata sia in centro
+    this.swiper.swiperRef.slideTo((idx + 3))
+
+    //colora i parametri selezionati casualmente
+    this.colorTiles()
+
   }
+
+  //-------------------------------------------------------------------
+  // cancella tutte le selezioni
+  //-------------------------------------------------------------------
   public deleteTiles() {
     console.log('delete!');
+
+    this.selectedParam = {
+      note: '',
+      quality: '',
+      num: '',
+      search: ''
+    }
+
+    this.swiper.swiperRef.slideTo(0 + 5)
+
+    this.colorTiles()
+
+    this.chords = [];
+
+
   }
+
+  //-------------------------------------------------------------------
+  // cambia notazione
+  //-------------------------------------------------------------------
   public translateTiles() {
     console.log('translate!');
-    // this.notation = !this.notation;
+    this.notation = !this.notation;
   }
   public goToInfo() {
     console.log('info!');
-
   }
 
-  selectTile(tile, value) {
+  //-------------------------------------------------------------------
+  // ogni volta che un parametro viene selezionato
+  //-------------------------------------------------------------------
+  public selectTile(tile, value) {
     if (this.selectedParam[tile] != value) {
       this.selectedParam[tile] = value;
     } else {
@@ -110,9 +197,50 @@ export class NotefinderPage implements OnInit {
     }
 
     this.colorTiles();
+
+    this.searchChord()
   }
 
-  colorTiles() {
+  //-------------------------------------------------------------------
+  // cerca l'accordo
+  //-------------------------------------------------------------------
+  public searchChord() {
+
+    console.log('search', this.selectedParam, Object.keys(this.selectedParam).some(key => this.selectedParam[key] != ''));
+
+    //se almeno un parametro è presente
+    if (Object.keys(this.selectedParam).some(key => this.selectedParam[key] != '')) {
+
+      this.chords = []
+
+      //mette tutti gli accordi per essere filtrati
+      this.pushAll()
+
+      //se c'è il parametro filtra perchè sia soddisfatto
+      if (this.selectedParam.note) {
+        this.chords = this.chords.filter(chord => chord.symbol.includes(this.selectedParam.note))
+      }
+      if (this.selectedParam.quality) {
+        //la qualità selezionata deve essere inclusa nella qualità dell'accordo
+        this.chords = this.chords.filter(chord => chord.quality.toLowerCase().includes(this.selectedParam.quality))
+      }
+      if (this.selectedParam.num) {
+        //il grado deve essere uno degli intervalli (anche in ottava bassa)
+        this.chords = this.chords.filter(chord => chord.intervals.some(interval => interval.includes(this.selectedParam.num) || interval.includes(parseInt(this.selectedParam.num) - 7)))
+      }
+      // la ricerca della searchbar viene fatta nel simbolo, nel nome, in ogni alias e nella qualità
+      if (this.selectedParam.search) {
+        this.chords = this.chords.filter(chord =>
+          chord.symbol.includes(this.selectedParam.search)
+          || chord.name.includes(this.selectedParam.search)
+          || chord.aliases.some(alias => alias.includes(this.selectedParam.search))
+          || chord.quality.toLowerCase().includes(this.selectedParam.search))
+      }
+
+    }
+  }
+
+  public colorTiles() {
     this.notes.map(note => {
       if (note.name == this.selectedParam.note) {
         note.class = 'tile-ruby';
@@ -140,19 +268,24 @@ export class NotefinderPage implements OnInit {
 
   }
 
-
   public pushAll() {
-    this.chords = ChordType.all()
+    ChordType.all().forEach(chord => this.chords.push(Chord.get(this.selectedParam.note + chord.aliases[0])))
   }
 
-
-  public a(a) {
-    console.log('sees')
+  public async openChord(chord) {
+    const modal = await this.modalController.create({
+      component: ChordComponent,
+      cssClass: 'fullscreen',
+      componentProps: {
+        chord: chord,
+        notation: this.notation
+      }
+    });
+    return await modal.present();
   }
-
-
 
   ngOnInit() {
+
   }
 
 }

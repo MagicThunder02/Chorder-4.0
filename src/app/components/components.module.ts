@@ -9,6 +9,7 @@ import { ActionButtonsComponent } from './action-buttons/action-buttons.componen
 import { MusicNotationPipe } from '../pipes/music-notation.pipe';
 import { PipesModule } from '../pipes/pipes.module';
 import { SwiperModule } from 'swiper/angular';
+import { AccidentPipe } from '../pipes/accident';
 
 @NgModule({
   imports: [
@@ -20,5 +21,6 @@ import { SwiperModule } from 'swiper/angular';
   ],
   declarations: [ChordComponent, ActionButtonsComponent],
   exports: [ChordComponent, ActionButtonsComponent],
+  providers: [AccidentPipe]
 })
 export class ComponentsModule { }
