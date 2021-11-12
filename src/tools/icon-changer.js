@@ -7,7 +7,7 @@ const fs = require('fs')
 /*--------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------------*/
 function replaceColor(raw, color) {
-    raw = raw.replace(/<path fill="#EDF2F4"/g, ` <path fill="#8D99AE"`);
+    raw = raw.replace(/fill="#5d6b82"/g, ``);
 
     return raw;
 }
@@ -36,7 +36,7 @@ var scanSvg = function (dir) {
                     // const modDimIcon = replaceDimension(modicon, { width: '50pt', height: '50pt' });
                     // width="50pt" height="50pt"
                     //La salviamo
-                    fs.writeFileSync(`${'../assets/instruments-icons/medium'}/${baseName}.svg`, modicon);
+                    fs.writeFileSync(`${'../assets/instruments-icons/light'}/${baseName}.svg`, modicon);
 
 
                 }

@@ -1,9 +1,188 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>metronome</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <action-buttons [buttons]="buttons"></action-buttons>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="4" class="center">
+        <ion-fab-button [ngClass]="'action-button ' + metronome.train.class" (click)="toggleTrain()">
+          <ion-icon size="large" name="trending-up"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+      <ion-col size="4" class="center">
+        <ion-fab-button [ngClass]="'action-button tile-light bpmNumber'" disabled>
+          {{ metronome.bpm }}
+        </ion-fab-button>
+      </ion-col>
+      <ion-col size="4" class="center">
+        <ion-fab-button [ngClass]="'action-button ' + metronome.tap.class" (click)="tapBpm()">
+          {{'TAP'}}
+        </ion-fab-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col size="12">
+        <ion-range [(ngModel)]="metronome.bpm" min="30" max="300" step="1" color="ruby">
+          <ion-fab-button size="small" slot="start" [ngClass]="'action-button'" color="ruby" (click)="removeBpm()">
+            <ion-icon name="remove">
+            </ion-icon>
+
+          </ion-fab-button>
+          <ion-fab-button size="small" slot="end" [ngClass]="'action-button'" color="ruby" (click)="addBpm()">
+            <ion-icon name="add"></ion-icon>
+
+          </ion-fab-button>
+        </ion-range>
+      </ion-col>
+
+    </ion-row>
+
+    <ng-container *ngIf="metronome.train.active">
+      <ion-row #final class="center">
+        <ion-col size="6">
+          <ion-text class="side-text">{{'Final Bpm'}}</ion-text>
+        </ion-col>
+        <ion-col size="2" class="ion-text-right">
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('final')">
+            <ion-icon name="remove"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+        <ion-col size="2" class="ion-text-center">
+          <ion-text>{{metronome.train.final}}</ion-text>
+        </ion-col>
+        <ion-col size="2" class="ion-text-left">
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('final')">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row #step class="center">
+        <ion-col size="6">
+          <ion-text class="side-text">{{'Step Bpm'}}</ion-text>
+        </ion-col>
+        <ion-col size="2" class="ion-text-right">
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('step')">
+            <ion-icon name="remove"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+        <ion-col size="2" class="ion-text-center">
+          <ion-text>{{metronome.train.step}}</ion-text>
+        </ion-col>
+        <ion-col size="2" class="ion-text-left">
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('step')">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row #measure class="center">
+        <ion-col size="6">
+          <ion-text class="side-text">{{'Measures Bpm'}}</ion-text>
+        </ion-col>
+        <ion-col size="2" class="ion-text-right">
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('measures')">
+            <ion-icon name="remove"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+        <ion-col size="2" class="ion-text-center">
+          <ion-text>{{metronome.train.measures}}</ion-text>
+        </ion-col>
+        <ion-col size="2" class="ion-text-left">
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('measures')">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+
+  </ion-grid>
+
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+
+        <ion-accordion-group>
+          <ion-accordion [value]="track.name" class="track" *ngFor="let track of metronome.tracks">
+            <ion-item slot="header" style="--background: var(--ion-color-light);">
+              <!-- <ion-input [(ngModel)]="track.name"></ion-input> -->
+              <ion-label> {{track.name}} </ion-label>
+            </ion-item>
+
+            <ion-list slot="content" style="background: var(--ion-color-light);">
+              <ion-grid>
+                <ion-row #beats class="center">
+                  <ion-col size="6">
+                    <ion-text class="side-text">{{'Beats'}}</ion-text>
+                  </ion-col>
+                  <ion-col size="2" class="ion-text-right">
+                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveBeat(track)">
+                      <ion-icon name="remove"></ion-icon>
+                    </ion-fab-button>
+                  </ion-col>
+                  <ion-col size="2" class="ion-text-center">
+                    <ion-text>{{track.beats}}</ion-text>
+                  </ion-col>
+                  <ion-col size="2" class="ion-text-left">
+                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackAddBeat(track)">
+                      <ion-icon name="add"></ion-icon>
+                    </ion-fab-button>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row #color class="center">
+                  <ion-col size="6">
+                    <ion-text class="side-text">{{'Color'}}</ion-text>
+                  </ion-col>
+                  <ion-col size="2" class="ion-text-right">
+                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveColor(track)">
+                      <ion-icon name="caret-back"></ion-icon>
+                    </ion-fab-button>
+                  </ion-col>
+                  <ion-col size="2" class="ion-text-center">
+                    <ion-fab-button size="small" [color]="track.color" class="action-button">
+
+                    </ion-fab-button>
+                  </ion-col>
+                  <ion-col size="2" class="ion-text-left">
+                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackAddColor(track)">
+                      <ion-icon name="caret-forward"></ion-icon>
+                    </ion-fab-button>
+                  </ion-col>
+                </ion-row>
+
+                <ion-row #sound class="center">
+                  <ion-col size="6">
+                    <ion-text class="side-text">{{'Sound'}}</ion-text>
+                  </ion-col>
+                  <ion-col size="2" class="ion-text-right">
+                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveSound(track)">
+                      <ion-icon name="caret-back"></ion-icon>
+                    </ion-fab-button>
+                  </ion-col>
+                  <ion-col size="2" class="ion-text-center">
+                    <ion-icon size="large" src="assets/instruments-icons/{{track.sound}}.svg"
+                      style="fill: var(--ion-color-medium);">
+                    </ion-icon>
+                  </ion-col>
+                  <ion-col size="2" class="ion-text-left">
+                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackAddSound(track)">
+                      <ion-icon name="caret-forward"></ion-icon>
+                    </ion-fab-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-list>
+
+          </ion-accordion>
+
+
+        </ion-accordion-group>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
 
 </ion-content>

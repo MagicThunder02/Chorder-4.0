@@ -18,12 +18,14 @@ export class ChordComponent implements OnInit {
     {
       name: 'back',
       icon: 'arrow-back',
+      color: 'ruby',
       action: () => this.modalController.dismiss()
     },
 
     {
       name: 'info',
       icon: 'information',
+      color: 'ruby',
       action: () => console.log('info!')
     }
   ]

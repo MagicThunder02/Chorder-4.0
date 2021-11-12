@@ -89,6 +89,13 @@ ion-searchbar {
     --color: var(--ion-color-light);
 }
 
-ion-content, ion-tab-bar  {
-    --background: var(--ion-color-light);;
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+ion-content, ion-tab-bar, ion-list{
+    --background: var(--ion-color-light);
 }

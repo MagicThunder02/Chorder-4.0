@@ -19,21 +19,25 @@ export class NotefinderPage implements OnInit {
     {
       name: 'random',
       icon: 'shuffle',
+      color: 'ruby',
       action: () => this.randomizeTiles()
     },
     {
       name: 'delete',
       icon: 'trash',
+      color: 'ruby',
       action: () => this.deleteTiles()
     },
     {
       name: 'translate',
       icon: 'language',
+      color: 'ruby',
       action: () => this.translateTiles()
     },
     {
       name: 'info',
       icon: 'information',
+      color: 'ruby',
       action: () => this.goToInfo()
     }
   ]

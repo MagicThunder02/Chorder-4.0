@@ -17,21 +17,26 @@ export class ChordmakerPage implements OnInit {
     {
       name: 'random',
       icon: 'shuffle',
-      action: () => this.randomizeTiles()
+      color: 'ruby',
+      action: (num) => this.randomizeTiles(num),
+      children: [3, 4, 5]
     },
     {
       name: 'delete',
       icon: 'trash',
+      color: 'ruby',
       action: () => this.deleteTiles()
     },
     {
       name: 'translate',
       icon: 'language',
+      color: 'ruby',
       action: () => this.translateTiles()
     },
     {
       name: 'info',
       icon: 'information',
+      color: 'ruby',
       action: () => this.goToInfo()
     }
   ]
@@ -58,8 +63,11 @@ export class ChordmakerPage implements OnInit {
   //-------------------------------------------------------------------
   // sceglie una combinazione di tiles che diano un'accordo casuale
   //-------------------------------------------------------------------
-  public randomizeTiles() {
-    console.log('randomize!');
+  public randomizeTiles(num?: number) {
+    console.log('randomize!', num);
+    if (!num) {
+      num = 4
+    }
 
     //inizializzo gli array
     this.chords = [];
@@ -76,23 +84,26 @@ export class ChordmakerPage implements OnInit {
       let shuffled = tmpArray.sort(() => 0.5 - Math.random());
 
       //prende un sottoinsieme dell'array di 4 note
-      this.selectedTiles = shuffled.slice(0, 4);
+      this.selectedTiles = shuffled.slice(0, num);
       console.log('selected tiles', this.selectedTiles);
 
+      // se il vengono selezionate due note con lo stesso valore, ci saranno meno caselle di quelle selezionate quindi rifà il giro
       this.checkEqualTile();
+      if (this.selectedTiles.length == num) {
 
-      let notes = this.selectedTiles.map(tile => tile.name);
-      let simplifiedNotes = this.selectedTiles.map(tile => Note.simplify(tile.name));
+        let notes = this.selectedTiles.map(tile => tile.name);
+        let simplifiedNotes = this.selectedTiles.map(tile => Note.simplify(tile.name));
 
-      //se l'accordo esiste lo usa
-      let chord = Chord.detect(notes).concat(Chord.detect(simplifiedNotes))
-      console.log(chord);
+        //se l'accordo esiste lo usa
+        let chord = Chord.detect(notes).concat(Chord.detect(simplifiedNotes))
+        console.log(chord);
 
-      //toglie i duplicati
-      if (chord) {
-        this.chords = [...new Set(chord)]
+        //toglie i duplicati
+        if (chord) {
+          this.chords = [...new Set(chord)]
+        }
+
       }
-
     }
 
     //colora le caselle selezionate a caso

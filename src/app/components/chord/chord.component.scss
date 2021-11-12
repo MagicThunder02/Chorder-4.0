@@ -47,9 +47,11 @@ ion-chip {
     color: var(--ion-color-dark);
 }
 
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.ruby {
+    //the ruby button needs light icon
+    fill: var(--ion-color-light);
 }
-
+.light {
+    //the light button needs medium icon
+    fill: var(--ion-color-medium);
+}

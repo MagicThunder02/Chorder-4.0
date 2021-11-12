@@ -163,7 +163,8 @@
                 <ng-template *ngFor="let instrument of instruments" swiperSlide>
                   <ion-fab-button [ngClass]="'action-button tile-' + instrument.color" [color]="instrument.color"
                     (click)="playChord(instrument)">
-                    <ion-icon size="large" src="assets/instruments-icons/{{instrument.color}}/{{instrument.name}}.svg">
+                    <ion-icon size="large" src="assets/instruments-icons/{{instrument.name}}.svg"
+                      [ngClass]="instrument.color">
                     </ion-icon>
 
                   </ion-fab-button>
