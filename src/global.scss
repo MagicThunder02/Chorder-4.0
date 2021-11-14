@@ -95,6 +95,15 @@ ion-searchbar {
     align-items: center;
 }
 
+.bpmNumber {
+    width: 25vmin;
+    height: 25vmin;
+
+    border: 3px solid var(--ion-color-ruby);
+
+    font-size: x-large;
+    --color: var(--ion-color-dark);
+}
 
 ion-content, ion-tab-bar, ion-list{
     --background: var(--ion-color-light);

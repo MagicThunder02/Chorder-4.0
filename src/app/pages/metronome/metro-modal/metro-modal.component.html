@@ -1,3 +1,46 @@
-<ion-content>
+<ion-content style="border: 1px solid green;">
   <action-buttons [buttons]="buttons"></action-buttons>
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" class="center">
+        <ion-fab-button [ngClass]="'action-button ' + metronome.train.class" (click)="pauseMetronome()">
+          <ion-icon size="large" name="pause"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+      <ion-col size="4" class="center">
+        <ion-fab-button [ngClass]="'action-button tile-light bpmNumber'" disabled>
+          {{ metronome.bpm }}
+        </ion-fab-button>
+      </ion-col>
+      <ion-col size="4" class="center">
+        <ion-fab-button [ngClass]="'action-button ' + metronome.tap.class" (click)="playMetronome()">
+          <ion-icon size="large" name="play"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ng-container *ngFor="let track of tracks">
+    <div *ngFor="let ball of track.drawings.balls" [style]="'background: var(' + ball.color + ')'"
+      [style.height]="ball.diameter + 'px'" [style.width]="ball.diameter + 'px'" [style.left]="ball.cX + 'px'"
+      [style.top]="ball.cY + 'px'" [ngClass]="ball.class">
+    </div>
+
+    <!-- <ng-container *ngIf="metronome.data.tracks.length > 1"> -->
+
+
+    <div [style.border]="track.drawings.circle.thickness + 'px' + ' solid ' + track.drawings.circle.color"
+      [style.height]="track.drawings.circle.diameter + 'px'" [style.width]="track.drawings.circle.diameter + 'px'"
+      [style.left]="track.drawings.circle.cX + 'px'" [style.top]="track.drawings.circle.cY + 'px'"
+      class="circumpherence">
+    </div>
+
+
+
+    <!-- </ng-container> -->
+    <!-- <ion-text> {{index}}</ion-text> -->
+  </ng-container>
 </ion-content>

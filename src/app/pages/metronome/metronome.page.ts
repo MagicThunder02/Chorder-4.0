@@ -36,11 +36,13 @@ export class MetronomePage implements OnInit {
     }
   ]
 
-  public colorArray: string[] = ['dark', 'medium', 'primary', 'secondary', 'tertiary', 'ruby', 'warning', 'success'];
+  public colorArray: string[] = ['dark', 'primary', 'secondary', 'tertiary', 'ruby', 'warning', 'success'];
   public soundArray: string[] = ['woodblock', 'whip', 'snare'];
 
   public metronome = {
     bpm: 120,
+    mute: false,
+    animation: true,
     train: {
       active: false,
       class: 'tile-light',
@@ -62,8 +64,13 @@ export class MetronomePage implements OnInit {
       {
         name: 'Metronome #1',
         beats: 4,
-        color: 'dark',
+        color: this.colorArray[Math.floor(Math.random() * this.colorArray.length)], //colore casuale
         sound: 'woodblock',
+        synth: null,
+        drawings: {
+          balls: [],
+          circle: {}
+        }
       }
     ]
   }
@@ -74,14 +81,22 @@ export class MetronomePage implements OnInit {
   // aggiunge un metronomo
   //-------------------------------------------------------------------
   public addMetronome() {
-    this.metronome.tracks.push({
-      name: `Metronome #${this.metronome.tracks.length + 1}`,
-      beats: 4,
-      color: 'dark',
-      sound: 'woodblock'
-    })
+    if (this.metronome.tracks.length < 3) {
+      this.metronome.tracks.push({
+        name: `Metronome #${this.metronome.tracks.length + 1}`,
+        beats: 4,
+        color: this.colorArray[Math.floor(Math.random() * this.colorArray.length)], //colore casuale
+        sound: 'woodblock',
+        synth: null,
+        drawings: {
+          balls: [],
+          circle: {}
+        }
+      })
 
-    console.log('added!');
+    }
+    console.log('add!');
+
   }
   //-------------------------------------------------------------------
   // cancella l'ulitmo metronomo
@@ -94,17 +109,22 @@ export class MetronomePage implements OnInit {
   // apre la modal 
   //-------------------------------------------------------------------
   public async playMetronome() {
-    const modal = await this.modalController.create({
-      component: MetroModalComponent,
-      cssClass: 'fullscreen',
-      componentProps: {
-        metronome: this.metronome,
-      }
-    });
+    if (this.metronome.tracks.length > 0) {
 
-    console.log('play!');
-    return await modal.present();
+
+      const modal = await this.modalController.create({
+        component: MetroModalComponent,
+        cssClass: 'fullscreen',
+        componentProps: {
+          metronome: this.metronome,
+        }
+      });
+
+      console.log('play!');
+      return await modal.present();
+    }
   }
+
   public goToInfo() {
     console.log('info!');
   }
@@ -264,10 +284,6 @@ export class MetronomePage implements OnInit {
     })
   }
 
-
-  //----------------------------------------------------------------------------------------------------------
-  // FUNZIONI DEL METRONOMO
-  //----------------------------------------------------------------------------------------------------------
 
   ngOnInit() {
   }
