@@ -1,0 +1,106 @@
+<ion-content>
+
+    <ion-grid>
+        <ion-row>
+            <ion-col size="3"> </ion-col>
+            <ion-col size="6" class="center title">
+                <ion-text color="dark"> Chordmaker Info </ion-text>
+            </ion-col>
+            <ion-col size="3" class="center">
+                <ion-fab-button (click)="modalController.dismiss()" class="action-button" color="ruby">
+                    <ion-icon name="close"></ion-icon>
+                </ion-fab-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-card class="tile-light">
+        <ion-card-header>
+            <ion-card-title color="dark">
+                What is Chordmaker?
+            </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            Chordmaker is a free chord encyclopedia where you can search for chords and their features by selecting
+            thier notes.
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card class="tile-light">
+        <ion-card-header>
+            <ion-card-title color="dark">
+                How to use it?
+            </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-card-subtitle>SELECT</ion-card-subtitle>
+            <ion-text>
+                You can select a note by clicking on it.
+                The first note will be the tonic of your chord.
+            </ion-text>
+
+
+            <ion-grid style="padding-left: 0; padding-right: 0; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                <ion-row>
+                    <ion-col class="center">
+                        <ion-card class="tile-card tile-light tile-col">
+                            C
+                        </ion-card>
+                    </ion-col>
+                    <ion-col class="center">
+                        <ion-icon size="large" name="arrow-forward-outline"></ion-icon>
+                    </ion-col>
+                    <ion-col class="center">
+                        <ion-card class="tile-card tile-ruby tile-col">
+                            C
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col class="center">
+                        <ion-card class="tile-card tile-light tile-col">
+                            E
+                        </ion-card>
+                    </ion-col>
+                    <ion-col class="center">
+                        <ion-icon size="large" name="arrow-forward-outline"></ion-icon>
+                    </ion-col>
+                    <ion-col class="center">
+                        <ion-card class="tile-card tile-salmon tile-col">
+                            E
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col class="center">
+                        <ion-card class="tile-card tile-light tile-col">
+                            G
+                        </ion-card>
+                    </ion-col>
+                    <ion-col class="center">
+                        <ion-icon size="large" name="arrow-forward-outline"></ion-icon>
+                    </ion-col>
+                    <ion-col class="center">
+                        <ion-card class="tile-card tile-salmon tile-col">
+                            G
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            <ion-card-subtitle>FIND</ion-card-subtitle>
+            <ion-text>
+                All the chords found with the combinations on notes selected will be displayed.
+                Click on a chord to see all its traits and infos.
+            </ion-text>
+
+            <ion-card class="chord">
+                <ion-card-header> CM </ion-card-header>
+            </ion-card>
+
+        </ion-card-content>
+    </ion-card>
+
+    <explain-buttons [buttons]="buttons"></explain-buttons>
+
+</ion-content>

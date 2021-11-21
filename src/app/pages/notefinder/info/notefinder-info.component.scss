@@ -1,0 +1,38 @@
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: larger;
+    font-weight: bold;
+    color: var(--ion-color-dark);
+}
+
+ion-card {
+    border-radius: 15px;
+    margin: 1rem;
+}
+
+ion-card-content {
+    padding-top: 0;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+ion-card-header {
+    padding: 1rem;
+}
+
+ion-searchbar {
+    --background: var(--ion-color-light);
+    border: 3px solid var(--ion-color-medium);
+    --box-shadow: none;
+    border-radius: 15px;
+    opacity: 1 !important;
+    --color: var(--ion-color-dark);
+    font-size: larger;
+    font-weight: bolder;
+
+}
+

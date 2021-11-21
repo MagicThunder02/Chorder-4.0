@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { Chord, ChordType } from '@tonaljs/tonal';
 import { ChordComponent } from 'src/app/components/chord/chord.component';
 import { SwiperComponent } from 'swiper/angular';
+import { NotefinderInfoComponent } from '../info/notefinder-info.component';
 
 @Component({
   selector: 'app-notefinder',
@@ -20,19 +21,22 @@ export class NotefinderPage implements OnInit {
       name: 'random',
       icon: 'shuffle',
       color: 'ruby',
-      action: () => this.randomizeTiles()
+      action: () => this.randomizeTiles(),
+      description: 'Finds a random chord',
     },
     {
       name: 'delete',
       icon: 'trash',
       color: 'ruby',
-      action: () => this.deleteTiles()
+      action: () => this.deleteTiles(),
+      description: 'Unselect all the filters',
     },
     {
       name: 'translate',
       icon: 'language',
       color: 'ruby',
-      action: () => this.translateTiles()
+      action: () => this.translateTiles(),
+      description: 'Changes the notation of notes'
     },
     {
       name: 'info',
@@ -186,8 +190,19 @@ export class NotefinderPage implements OnInit {
     console.log('translate!');
     this.notation = !this.notation;
   }
-  public goToInfo() {
+  public async goToInfo() {
     console.log('info!');
+    const modal = await this.modalController.create({
+      component: NotefinderInfoComponent,
+      componentProps: {
+        buttons: this.buttons,
+        notes: this.notes,
+        qualities: this.qualities,
+        numbers: this.numbers
+      },
+      cssClass: 'fullscreen',
+    });
+    return await modal.present();
   }
 
   //-------------------------------------------------------------------

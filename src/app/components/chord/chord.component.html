@@ -2,16 +2,20 @@
 
   <ion-grid>
     <ion-row>
-      <ng-container *ngFor="let button of buttons; let i = index">
-        <ion-col [size]="12 / (buttons.length+1)" class="center">
-          <ion-fab-button (click)="button.action()" class="action-button" color="ruby">
-            <ion-icon [name]="button.icon"></ion-icon>
-          </ion-fab-button>
-        </ion-col>
-        <ion-col *ngIf="i==0" [size]="12 / (buttons.length + 1)" class="title">
-          {{ chord.symbol | musicNotation : notation }}
-        </ion-col>
-      </ng-container>
+      <ion-col size="3" class="center">
+        <ion-fab-button (click)="buttons[0].action()" class="action-button" color="ruby">
+          <ion-icon [name]="buttons[0].icon"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+      <ion-col [size]="6" class="center title">
+        {{ chord.symbol | musicNotation : notation }}
+      </ion-col>
+      <ion-col size="3" class="center">
+        <ion-fab-button (click)="buttons[1].action()" class="action-button" color="ruby">
+          <ion-icon [name]="buttons[1].icon"></ion-icon>
+        </ion-fab-button>
+      </ion-col>
+
     </ion-row>
   </ion-grid>
 

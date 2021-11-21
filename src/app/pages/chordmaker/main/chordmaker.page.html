@@ -18,7 +18,7 @@
     <ion-row *ngFor="let chord of chords" (click)="openChord(chord)">
       <ion-col>
 
-        <ion-card class="chord">
+        <ion-card class="chord" style="margin:0;">
           <ion-card-header>{{ chord  | musicNotation : notation }}</ion-card-header>
         </ion-card>
 

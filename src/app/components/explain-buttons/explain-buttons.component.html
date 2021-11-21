@@ -1,0 +1,25 @@
+<ion-card class="tile-light">
+  <ion-card-header>
+    <ion-card-title color="dark">
+      What do the buttons do?
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row *ngFor="let button of buttons">
+        <ng-container *ngIf="button.name != 'info'">
+          <ion-col size="4" class="center">
+
+            <ion-fab-button class="action-button tile-ruby">
+              <ion-icon [name]="button.icon"></ion-icon>
+            </ion-fab-button>
+          </ion-col>
+          <ion-col>
+            <ion-card-subtitle> {{ button.name }}</ion-card-subtitle>
+            {{ button.description }}
+          </ion-col>
+        </ng-container>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

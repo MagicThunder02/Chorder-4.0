@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Chord, Interval, Note } from '@tonaljs/tonal';
 import { ChordComponent } from 'src/app/components/chord/chord.component';
+import { ChordmakerInfoComponent } from '../info/chordmaker-info.component';
+
 
 @Component({
   selector: 'app-chordmaker',
@@ -19,19 +21,22 @@ export class ChordmakerPage implements OnInit {
       icon: 'shuffle',
       color: 'ruby',
       action: (num) => this.randomizeTiles(num),
+      description: 'Selects a number of note randomy',
       children: [3, 4, 5]
     },
     {
       name: 'delete',
       icon: 'trash',
       color: 'ruby',
-      action: () => this.deleteTiles()
+      action: () => this.deleteTiles(),
+      description: 'Unselects all the notes'
     },
     {
       name: 'translate',
       icon: 'language',
       color: 'ruby',
-      action: () => this.translateTiles()
+      action: () => this.translateTiles(),
+      description: 'Changes the notation of notes'
     },
     {
       name: 'info',
@@ -126,8 +131,16 @@ export class ChordmakerPage implements OnInit {
     console.log('translate!');
     this.notation = !this.notation;
   }
-  public goToInfo() {
+  public async goToInfo() {
     console.log('info!');
+    const modal = await this.modalController.create({
+      component: ChordmakerInfoComponent,
+      componentProps: {
+        buttons: this.buttons
+      },
+      cssClass: 'fullscreen',
+    });
+    return await modal.present();
   }
 
   //------------------------------------

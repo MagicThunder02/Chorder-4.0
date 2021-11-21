@@ -10,8 +10,9 @@ import * as Tone from 'tone'
 })
 export class MetroModalComponent implements OnInit {
 
-  @Input() metronome
-  private tracks = [];
+  @Input() inputMetronome
+
+  public metronome
 
   public buttons = [
     {
@@ -104,10 +105,9 @@ export class MetroModalComponent implements OnInit {
   public inizializeDrawings() {
 
     //ordina le tracks da quella con più beats a quella con meno beats (decrescente)
-    this.tracks = [...this.metronome.tracks];
-    this.tracks.sort((track1, track2) => track2.beats - track1.beats)
+    this.metronome.tracks.sort((track1, track2) => track2.beats - track1.beats)
 
-    this.tracks.forEach(track => {
+    this.metronome.tracks.forEach(track => {
       track.drawings.balls = []
       for (let i = 0; i < track.beats; i++) {
         track.drawings.balls.push(({ color: '--ion-color-medium', class: 'ball', diameter: 0, cX: 0, cY: 0 }));
@@ -121,7 +121,7 @@ export class MetroModalComponent implements OnInit {
   // assegna il raggio alle palle
   //-------------------------------------------------------------------
   public calcBallsRadius() {
-    let diameter = this.platform.width() / 8 - (this.tracks.length * 4)
+    let diameter = this.platform.width() / 8 - (this.metronome.tracks.length * 4)
 
     this.metronome.tracks.forEach(track => {
       track.drawings.balls.map(ball => ball.diameter = diameter)
@@ -134,7 +134,7 @@ export class MetroModalComponent implements OnInit {
   public calcCircleRadius() {
 
 
-    this.tracks.forEach((track, idx) => {
+    this.metronome.tracks.forEach((track, idx) => {
       //lo spazio da togliere è (due volte il diametro) per ogni traccia e 30 pixel di meno  
       let spaceBetween = track.drawings.balls[0].diameter * 2 * (idx + 1) + (idx * 30);
 
@@ -155,7 +155,7 @@ export class MetroModalComponent implements OnInit {
   //-------------------------------------------------------------------
   public calcBallsPosition() {
 
-    this.tracks.forEach(track => {
+    this.metronome.tracks.forEach(track => {
       //centro della pagina
       let x0 = this.platform.width() / 2
       let y0 = this.platform.height() / 2 + this.platform.height() / 8
@@ -174,7 +174,7 @@ export class MetroModalComponent implements OnInit {
   //-------------------------------------------------------------------
   public animateBall(ball, color) {
     //prende il colore scuro o chiare a seconda di quale battito sia
-    if (this.tracks[0].drawings.balls.indexOf(ball) == 0) {
+    if (this.metronome.tracks[0].drawings.balls.indexOf(ball) == 0) {
       ball.color = `--ion-color-${color}-shade`;
     }
     else {
@@ -197,7 +197,7 @@ export class MetroModalComponent implements OnInit {
   //-----------------------------------------------------------------------------------------------------------------
 
   public initializeMetronome() {
-    this.tracks.forEach(track => {
+    this.metronome.tracks.forEach(track => {
       let sampler = new Tone.Sampler({
         urls: {
           C3: `${track.sound}C3.mp3`,
@@ -215,10 +215,11 @@ export class MetroModalComponent implements OnInit {
   public createLoop() {
     //il tempo master è quello del primo metronomo (quello con più battiti)
     //https://toolstud.io/music/bpm.php?bpm=120&bpm_unit=8%2F4
-    let beatTime = 60 / this.metronome.bpm * this.tracks[0].beats
+    let beatTime = 60 / this.metronome.bpm * this.metronome.tracks[0].beats;
+    this.metronome.train.count = 0;
 
 
-    this.tracks.forEach(track => {
+    this.metronome.tracks.forEach((track, i) => {
       //il tempo di ogni traccia è il tempo master diviso i battiti
       let trackTime = beatTime / track.beats
 
@@ -240,16 +241,60 @@ export class MetroModalComponent implements OnInit {
           this.animateBall(track.drawings.balls[ballIdx], track.color)
         }
 
-        ballIdx = (ballIdx + 1) % track.beats
+        console.log('idx', ballIdx);
+        ballIdx++;
+
+        this.increaseBpm()
+
+
+        if (ballIdx >= track.beats) {
+          ballIdx = 0
+
+          //solo se è la traccia master
+          if (i == 0) {
+            this.metronome.train.count++;
+
+          }
+
+        }
 
       }, trackTime).start(0);
 
     })
   }
 
+  private increaseBpm() {
+    if (this.metronome.train.active) {
+
+
+      console.log('count', this.metronome.train.count);
+
+      if (this.metronome.bpm < this.metronome.train.final) {
+
+
+        if (this.metronome.train.count >= this.metronome.train.measures) {
+
+
+          if (this.metronome.bpm + this.metronome.train.step > this.metronome.train.final) {
+
+            this.metronome.bpm = this.metronome.train.final;
+          }
+          else {
+            this.metronome.bpm += this.metronome.train.step;
+          }
+
+          Tone.Transport.bpm.value = this.metronome.bpm;
+
+          this.metronome.train.count = 0;
+        }
+      }
+    }
+  }
+
   public playMetronome() {
     Tone.Transport.position = 0;
     Tone.Transport.start();
+    // Tone.Transport.start(0);
     console.log('start');
 
   }
@@ -262,16 +307,21 @@ export class MetroModalComponent implements OnInit {
 
 
   ngOnInit() {
+    // root.style.setProperty('--mouse-x', e.clientX + "px");
+
+    this.metronome = { ...this.inputMetronome }
+
 
     this.inizializeDrawings();
     this.calcBallsRadius();
     this.calcCircleRadius();
     this.calcBallsPosition();
 
+    Tone.start()
     this.initializeMetronome()
     this.createLoop()
 
-    console.log('tracks:', this.tracks);
+    console.log('tracks:', this.metronome.tracks);
 
   }
 

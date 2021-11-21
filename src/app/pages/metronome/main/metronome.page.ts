@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { MetroModalComponent } from './metro-modal/metro-modal.component';
+import { MetronomeInfoComponent } from '../info/metronome-info.component';
+import { MetroModalComponent } from '../metro-modal/metro-modal.component';
 
 @Component({
   selector: 'app-metronome',
@@ -14,19 +15,22 @@ export class MetronomePage implements OnInit {
       name: 'add',
       icon: 'add',
       color: 'ruby',
-      action: () => this.addMetronome()
+      action: () => this.addMetronome(),
+      description: 'Add a metronome to create a polyrhythm'
     },
     {
       name: 'delete',
       icon: 'trash',
       color: 'ruby',
-      action: () => this.deleteMetro()
+      action: () => this.deleteMetro(),
+      description: 'Deletes the last metronome'
     },
     {
       name: 'play',
       icon: 'play',
       color: 'ruby',
-      action: () => this.playMetronome()
+      action: () => this.playMetronome(),
+      description: 'Starts the metronome'
     },
     {
       name: 'info',
@@ -48,7 +52,8 @@ export class MetronomePage implements OnInit {
       class: 'tile-light',
       final: 160,
       step: 10,
-      measures: 4
+      measures: 4,
+      count: 0
     },
     tap: {
       active: false,
@@ -81,11 +86,14 @@ export class MetronomePage implements OnInit {
   // aggiunge un metronomo
   //-------------------------------------------------------------------
   public addMetronome() {
+    //prende un colore non ancora usato
+    let tmpArray = this.colorArray.filter(color => this.metronome.tracks.every(track => track.color != color))
+
     if (this.metronome.tracks.length < 3) {
       this.metronome.tracks.push({
         name: `Metronome #${this.metronome.tracks.length + 1}`,
         beats: 4,
-        color: this.colorArray[Math.floor(Math.random() * this.colorArray.length)], //colore casuale
+        color: tmpArray[Math.floor(Math.random() * tmpArray.length)], //colore casuale
         sound: 'woodblock',
         synth: null,
         drawings: {
@@ -116,7 +124,7 @@ export class MetronomePage implements OnInit {
         component: MetroModalComponent,
         cssClass: 'fullscreen',
         componentProps: {
-          metronome: this.metronome,
+          inputMetronome: this.metronome,
         }
       });
 
@@ -125,8 +133,16 @@ export class MetronomePage implements OnInit {
     }
   }
 
-  public goToInfo() {
+  public async goToInfo() {
     console.log('info!');
+    const modal = await this.modalController.create({
+      component: MetronomeInfoComponent,
+      componentProps: {
+        buttons: this.buttons,
+      },
+      cssClass: 'fullscreen',
+    });
+    return await modal.present();
   }
 
 

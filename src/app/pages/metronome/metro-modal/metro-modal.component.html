@@ -1,6 +1,5 @@
-<ion-content style="border: 1px solid green;">
+<ion-content>
   <action-buttons [buttons]="buttons"></action-buttons>
-
 
   <ion-grid>
     <ion-row>
@@ -22,14 +21,14 @@
     </ion-row>
   </ion-grid>
 
-
-  <ng-container *ngFor="let track of tracks">
+  <ng-container *ngFor="let track of metronome.tracks">
     <div *ngFor="let ball of track.drawings.balls" [style]="'background: var(' + ball.color + ')'"
-      [style.height]="ball.diameter + 'px'" [style.width]="ball.diameter + 'px'" [style.left]="ball.cX + 'px'"
-      [style.top]="ball.cY + 'px'" [ngClass]="ball.class">
+      [style.color]="'var(' + ball.color + ')'" [style.height]="ball.diameter + 'px'"
+      [style.width]="ball.diameter + 'px'" [style.left]="ball.cX + 'px'" [style.top]="ball.cY + 'px'"
+      [ngClass]="ball.class">
     </div>
 
-    <!-- <ng-container *ngIf="metronome.data.tracks.length > 1"> -->
+    <!-- <ng-container *ngIf="metronome.data.metronome.tracks.length > 1"> -->
 
 
     <div [style.border]="track.drawings.circle.thickness + 'px' + ' solid ' + track.drawings.circle.color"

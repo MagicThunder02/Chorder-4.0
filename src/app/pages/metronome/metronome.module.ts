@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { MetronomePage } from './metronome.page';
+import { MetronomePage } from './main/metronome.page';
 import { Routes, RouterModule } from '@angular/router';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { MetroModalComponent } from './metro-modal/metro-modal.component';
+import { MetronomeInfoComponent } from './info/metronome-info.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,6 @@ const routes: Routes = [
     ComponentsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MetronomePage, MetroModalComponent]
+  declarations: [MetronomePage, MetronomeInfoComponent, MetroModalComponent]
 })
 export class MetronomePageModule { }

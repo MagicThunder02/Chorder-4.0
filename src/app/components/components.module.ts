@@ -6,10 +6,10 @@ import { IonicModule } from '@ionic/angular';
 
 import { ChordComponent } from 'src/app/components/chord/chord.component';
 import { ActionButtonsComponent } from './action-buttons/action-buttons.component';
-import { MusicNotationPipe } from '../pipes/music-notation.pipe';
 import { PipesModule } from '../pipes/pipes.module';
 import { SwiperModule } from 'swiper/angular';
 import { AccidentPipe } from '../pipes/accident';
+import { ExplainButtonsComponent } from './explain-buttons/explain-buttons.component';
 
 @NgModule({
   imports: [
@@ -19,8 +19,8 @@ import { AccidentPipe } from '../pipes/accident';
     SwiperModule,
     PipesModule
   ],
-  declarations: [ChordComponent, ActionButtonsComponent],
-  exports: [ChordComponent, ActionButtonsComponent],
+  declarations: [ChordComponent, ActionButtonsComponent, ExplainButtonsComponent],
+  exports: [ChordComponent, ActionButtonsComponent, ExplainButtonsComponent],
   providers: [AccidentPipe]
 })
 export class ComponentsModule { }

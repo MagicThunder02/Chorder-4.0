@@ -1,0 +1,13 @@
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: larger;
+    font-weight: bold;
+    color: var(--ion-color-dark);
+}
+
+ion-card {
+    border-radius: 15px;
+}
