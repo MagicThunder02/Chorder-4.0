@@ -10,7 +10,14 @@
       </ion-col>
       <ion-col size="4" class="center">
         <ion-fab-button [ngClass]="'action-button tile-light bpmNumber'" disabled>
-          {{ metronome.bpm }}
+
+          <ion-grid fixed>
+            <ion-row>
+              <ion-col size="12"> {{ metronome.bpm }}</ion-col>
+              <ion-col size="12" style="font-size: small;">{{ metronome.tempo | titlecase }}</ion-col>
+            </ion-row>
+          </ion-grid>
+
         </ion-fab-button>
       </ion-col>
       <ion-col size="4" class="center">
@@ -20,10 +27,18 @@
       </ion-col>
     </ion-row>
 
+    <!-- <ion-row>
+      <ion-col size="12" class="center">
+        <ion-text>
+          {{ metronome.tempo | titlecase }}
+        </ion-text>
+      </ion-col>
+    </ion-row> -->
+
     <ion-row>
 
       <ion-col size="12">
-        <ion-range [(ngModel)]="metronome.bpm" min="30" max="300" step="1" color="ruby">
+        <ion-range [(ngModel)]="metronome.bpm" min="30" max="300" step="1" color="ruby" (ionChange)="checkValues()">
           <ion-fab-button size="small" slot="start" [ngClass]="'action-button'" color="ruby" (click)="removeBpm()">
             <ion-icon name="remove">
             </ion-icon>
@@ -40,18 +55,18 @@
 
     <ng-container *ngIf="metronome.train.active">
       <ion-row #final class="center">
-        <ion-col size="6">
+        <ion-col size="5.5">
           <ion-text class="side-text">{{'Final Bpm'}}</ion-text>
         </ion-col>
-        <ion-col size="2" class="ion-text-right">
+        <ion-col size="2.5" class="center">
           <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('final')">
             <ion-icon name="remove"></ion-icon>
           </ion-fab-button>
         </ion-col>
-        <ion-col size="2" class="ion-text-center">
+        <ion-col size="1.5" class="center">
           <ion-text>{{metronome.train.final}}</ion-text>
         </ion-col>
-        <ion-col size="2" class="ion-text-left">
+        <ion-col size="2.5" class="center">
           <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('final')">
             <ion-icon name="add"></ion-icon>
           </ion-fab-button>
@@ -59,18 +74,18 @@
       </ion-row>
 
       <ion-row #step class="center">
-        <ion-col size="6">
+        <ion-col size="5.5">
           <ion-text class="side-text">{{'Step Bpm'}}</ion-text>
         </ion-col>
-        <ion-col size="2" class="ion-text-right">
+        <ion-col size="2.5" class="center">
           <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('step')">
             <ion-icon name="remove"></ion-icon>
           </ion-fab-button>
         </ion-col>
-        <ion-col size="2" class="ion-text-center">
+        <ion-col size="1.5" class="center">
           <ion-text>{{metronome.train.step}}</ion-text>
         </ion-col>
-        <ion-col size="2" class="ion-text-left">
+        <ion-col size="2.5" class="center">
           <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('step')">
             <ion-icon name="add"></ion-icon>
           </ion-fab-button>
@@ -78,18 +93,18 @@
       </ion-row>
 
       <ion-row #measure class="center">
-        <ion-col size="6">
+        <ion-col size="5.5" class="center">
           <ion-text class="side-text">{{'Measures Bpm'}}</ion-text>
         </ion-col>
-        <ion-col size="2" class="ion-text-right">
+        <ion-col size="2.5" class="center">
           <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('measures')">
             <ion-icon name="remove"></ion-icon>
           </ion-fab-button>
         </ion-col>
-        <ion-col size="2" class="ion-text-center">
+        <ion-col size="1.5" class="center">
           <ion-text>{{metronome.train.measures}}</ion-text>
         </ion-col>
-        <ion-col size="2" class="ion-text-left">
+        <ion-col size="2.5" class="center">
           <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('measures')">
             <ion-icon name="add"></ion-icon>
           </ion-fab-button>
@@ -104,7 +119,8 @@
       <ion-col size="12">
 
         <ion-accordion-group>
-          <ion-accordion [value]="track.name" class="track" *ngFor="let track of metronome.tracks">
+          <ion-accordion [value]="track.name" class="track" [id]="metronome.tracks.indexOf(track)"
+            *ngFor="let track of metronome.tracks" #accordion>
             <ion-item slot="header" style="--background: var(--ion-color-light);">
               <!-- <ion-input [(ngModel)]="track.name"></ion-input> -->
               <ion-label> {{track.name}} </ion-label>

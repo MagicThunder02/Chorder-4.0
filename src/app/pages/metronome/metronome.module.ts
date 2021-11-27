@@ -9,6 +9,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { MetroModalComponent } from './metro-modal/metro-modal.component';
 import { MetronomeInfoComponent } from './info/metronome-info.component';
+import { MetronomeModalInfoComponent } from './modal-info/metronome-modal-info.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,6 @@ const routes: Routes = [
     ComponentsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MetronomePage, MetronomeInfoComponent, MetroModalComponent]
+  declarations: [MetronomePage, MetronomeInfoComponent, MetroModalComponent, MetronomeModalInfoComponent]
 })
 export class MetronomePageModule { }

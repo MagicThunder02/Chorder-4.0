@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { createAnimation, ModalController, Platform } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import * as Tone from 'tone'
+import { MetronomeModalInfoComponent } from '../modal-info/metronome-modal-info.component';
 
 
 @Component({
@@ -19,19 +20,22 @@ export class MetroModalComponent implements OnInit {
       name: 'back',
       icon: 'arrow-back',
       color: 'ruby',
-      action: () => this.goBack()
+      action: () => this.goBack(),
+      description: 'Goes back to the metronome options'
     },
     {
       name: 'animate',
       icon: 'eye',
       color: 'ruby',
-      action: () => this.animateMetro()
+      action: () => this.animateMetro(),
+      description: 'Toggles the animations of the metronome'
     },
     {
       name: 'mute',
       icon: 'volume-high',
       color: 'ruby',
-      action: () => this.muteMetro()
+      action: () => this.muteMetro(),
+      description: 'Mutes the metronome'
     },
     {
       name: 'info',
@@ -87,11 +91,21 @@ export class MetroModalComponent implements OnInit {
     }
   }
   //-------------------------------------------------------------------
-  // torna alle impostazioni
+  // go to info
   //-------------------------------------------------------------------
-  public goToInfo() {
-    this.modalController.dismiss()
-    console.log('go back!');
+  public async goToInfo() {
+    Tone.Transport.stop()
+    Tone.Transport.cancel()
+    console.log('info!');
+
+    const modal = await this.modalController.create({
+      component: MetronomeModalInfoComponent,
+      componentProps: {
+        buttons: this.buttons
+      },
+      cssClass: 'fullscreen',
+    });
+    return await modal.present();
   }
 
 

@@ -17,7 +17,7 @@
     <ion-card class="tile-light">
         <ion-card-header>
             <ion-card-title color="dark">
-                What is Metonome?
+                What is Metronome?
             </ion-card-title>
         </ion-card-header>
         <ion-card-content>
@@ -32,17 +32,142 @@
             </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            <ion-card-subtitle>SELECT</ion-card-subtitle>
+
+            <ion-card-subtitle>TEMPO</ion-card-subtitle>
             <ion-text>
-                You can select a tonic and then filter by quality, grade or simply type the chord symbol in the
-                searchbar.
+                All the bpm options
             </ion-text>
 
-            <ion-card-subtitle>FIND</ion-card-subtitle>
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="4" class="center">
+                        <ion-fab-button class="action-button tile-light"
+                            style="border: 3px solid var(--ion-color-ruby);" disabled>
+                            120
+                        </ion-fab-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-card-subtitle> Bpm </ion-card-subtitle>
+                        Here you can check the current bpm value.
+                        You can change its value using the slider, the buttons or the tap feature
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col size="4" class="center">
+                        <ion-fab-button class="action-button tile-ruby" disabled>
+                            {{'TAP'}}
+                        </ion-fab-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-card-subtitle> Tap </ion-card-subtitle>
+                        Tap along with a song beat to adjust the metronome to the song bpm
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            <ion-card-subtitle>TRAIN</ion-card-subtitle>
             <ion-text>
-                All the chords found with the selected filters will be displayed.
-                Click on a chord to see all its traits and infos.
+                Train yourself increasing the bpm over time
             </ion-text>
+
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="4" class="center">
+                        <ion-fab-button class="action-button tile-ruby" disabled>
+                            <ion-icon size="large" name="trending-up"></ion-icon>
+                        </ion-fab-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-card-subtitle> INCREASE </ion-card-subtitle>
+                        Activates the train mode
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="4" class="center">
+                        <ion-fab-button class="action-button tile-light"
+                            style="border: 3px solid var(--ion-color-ruby);" disabled>
+                            160
+                        </ion-fab-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-card-subtitle> Final </ion-card-subtitle>
+                        Sets when the metronome will stop increasing
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="4" class="center">
+                        <ion-fab-button class="action-button tile-light"
+                            style="border: 3px solid var(--ion-color-ruby);" disabled>
+                            10
+                        </ion-fab-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-card-subtitle> Step </ion-card-subtitle>
+                        Sets the number of bpm added each time
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="4" class="center">
+                        <ion-fab-button class="action-button tile-light"
+                            style="border: 3px solid var(--ion-color-ruby);" disabled>
+                            4
+                        </ion-fab-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-card-subtitle> Measures </ion-card-subtitle>
+                        Sets the number of measure between each increment
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+
+            <ion-card-subtitle>CUSTOMIZE</ion-card-subtitle>
+            <ion-text>
+                Change the color and sound of every metronome
+            </ion-text>
+
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="4" class="center">
+                        <ion-fab-button class="action-button tile-light"
+                            style="border: 3px solid var(--ion-color-ruby);" disabled>
+                            4
+                        </ion-fab-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-card-subtitle> Beats </ion-card-subtitle>
+                        Changes the number of beats for each measure
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col size="4" class="center">
+                        <ion-fab-button class="action-button" color="secondary" disabled>
+                        </ion-fab-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-card-subtitle> Color </ion-card-subtitle>
+                        Changes the color of this metronome
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col size="4" class="center">
+                        <ion-fab-button class="action-button tile-light" disabled>
+                            <ion-icon size="large" src="assets/instruments-icons/woodblock.svg"
+                                style="fill: var(--ion-color-medium);">
+                            </ion-icon>
+                        </ion-fab-button>
+
+                    </ion-col>
+                    <ion-col>
+                        <ion-card-subtitle> Sound </ion-card-subtitle>
+                        Changes the sound of this metronome
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
 
         </ion-card-content>
     </ion-card>

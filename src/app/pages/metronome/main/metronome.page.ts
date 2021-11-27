@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, Input, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Gesture, GestureController, ModalController, Platform } from '@ionic/angular';
 import { MetronomeInfoComponent } from '../info/metronome-info.component';
 import { MetroModalComponent } from '../metro-modal/metro-modal.component';
 
@@ -9,6 +9,8 @@ import { MetroModalComponent } from '../metro-modal/metro-modal.component';
   styleUrls: ['./metronome.page.scss'],
 })
 export class MetronomePage implements OnInit {
+
+  @ViewChildren('accordion') accordionList
 
   public buttons = [
     {
@@ -42,9 +44,12 @@ export class MetronomePage implements OnInit {
 
   public colorArray: string[] = ['dark', 'primary', 'secondary', 'tertiary', 'ruby', 'warning', 'success'];
   public soundArray: string[] = ['woodblock', 'whip', 'snare'];
+  public metronomeCounter: number = 1;
+  public gestureArray: Gesture[] = [];
 
   public metronome = {
     bpm: 120,
+    tempo: 'allegro',
     mute: false,
     animation: true,
     train: {
@@ -67,7 +72,7 @@ export class MetronomePage implements OnInit {
     },
     tracks: [
       {
-        name: 'Metronome #1',
+        name: `Metronome #${this.metronomeCounter++}`,
         beats: 4,
         color: this.colorArray[Math.floor(Math.random() * this.colorArray.length)], //colore casuale
         sound: 'woodblock',
@@ -80,7 +85,11 @@ export class MetronomePage implements OnInit {
     ]
   }
 
-  constructor(private modalController: ModalController) { }
+  constructor(
+    private modalController: ModalController,
+    private gestureCtrl: GestureController,
+    private platform: Platform
+  ) { }
 
   //-------------------------------------------------------------------
   // aggiunge un metronomo
@@ -91,7 +100,7 @@ export class MetronomePage implements OnInit {
 
     if (this.metronome.tracks.length < 3) {
       this.metronome.tracks.push({
-        name: `Metronome #${this.metronome.tracks.length + 1}`,
+        name: `Metronome #${this.metronomeCounter++}`,
         beats: 4,
         color: tmpArray[Math.floor(Math.random() * tmpArray.length)], //colore casuale
         sound: 'woodblock',
@@ -103,6 +112,7 @@ export class MetronomePage implements OnInit {
       })
 
     }
+
     console.log('add!');
 
   }
@@ -113,6 +123,21 @@ export class MetronomePage implements OnInit {
     this.metronome.tracks.pop()
     console.log('delete!');
   }
+  //-------------------------------------------------------------------
+  // apre le info 
+  //-------------------------------------------------------------------
+  public async goToInfo() {
+    console.log('info!');
+    const modal = await this.modalController.create({
+      component: MetronomeInfoComponent,
+      componentProps: {
+        buttons: this.buttons,
+      },
+      cssClass: 'fullscreen',
+    });
+    return await modal.present();
+  }
+
   //-------------------------------------------------------------------
   // apre la modal 
   //-------------------------------------------------------------------
@@ -133,18 +158,44 @@ export class MetronomePage implements OnInit {
     }
   }
 
-  public async goToInfo() {
-    console.log('info!');
-    const modal = await this.modalController.create({
-      component: MetronomeInfoComponent,
-      componentProps: {
-        buttons: this.buttons,
-      },
-      cssClass: 'fullscreen',
-    });
-    return await modal.present();
-  }
+  //-------------------------------------------------------------------
+  // gestisce la cancellazione dei metronomi
+  //-------------------------------------------------------------------
+  public gestureMetronome() {
+    this.gestureArray.map((gesture) => gesture.destroy());
+    this.gestureArray = [];
 
+    this.accordionList.forEach(accordion => {
+
+      let drag = this.gestureCtrl.create({
+        el: accordion.el,
+        threshold: 20,
+        direction: 'x',
+        gestureName: 'drag',
+
+        onMove: (ev) => {
+          accordion.el.style.transform = `translate(${ev.deltaX}px, 0)`;
+        },
+
+        onEnd: (ev) => {
+          console.log(ev)
+
+          if (Math.abs(ev.deltaX) < this.platform.width() / 2) {
+            accordion.el.style.transform = `translate(0, 0)`;
+          }
+          else {
+            console.log('bye');
+            this.metronome.tracks.splice(accordion.el.id, 1)
+          }
+        },
+      });
+
+      drag.enable();
+      this.gestureArray.push(drag)
+      console.log(this.gestureArray);
+
+    });
+  }
 
   //-------------------------------------------------------------------
   // attiva o disattiva la modalità train
@@ -298,10 +349,56 @@ export class MetronomePage implements OnInit {
       if (track.beats < 1) { track.beats = 1; }
       if (track.beats > 12) { track.beats = 12; }
     })
+
+    //aggiusto il nome del tempo
+    if (this.metronome.bpm < 40) {
+      this.metronome.tempo = 'grave';
+    }
+    else if (this.metronome.bpm < 60) {
+      this.metronome.tempo = 'largo';
+    }
+    else if (this.metronome.bpm < 65) {
+      this.metronome.tempo = 'larghetto';
+    }
+    else if (this.metronome.bpm < 75) {
+      this.metronome.tempo = 'adagio';
+    }
+    else if (this.metronome.bpm < 90) {
+      this.metronome.tempo = 'andante';
+    }
+    else if (this.metronome.bpm < 105) {
+      this.metronome.tempo = 'moderato';
+    }
+    else if (this.metronome.bpm < 115) {
+      this.metronome.tempo = 'allegretto';
+    }
+    else if (this.metronome.bpm < 130) {
+      this.metronome.tempo = 'allegro';
+    }
+    else if (this.metronome.bpm < 165) {
+      this.metronome.tempo = 'vivace';
+    }
+    else if (this.metronome.bpm < 200) {
+      this.metronome.tempo = 'presto';
+    }
+    else {
+      this.metronome.tempo = 'prestissimo';
+    }
+
   }
 
 
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit() {
+    this.gestureMetronome();
+    console.log('aaa');
+
+    this.accordionList.changes.subscribe((res) => {
+      this.gestureMetronome();
+    });
   }
 
 }

@@ -68,6 +68,7 @@ ion-searchbar {
 
     --box-shadow: none;
     --background-activated: auto;
+    opacity: 1 !important;
   }
 
 .tile-light {
@@ -96,8 +97,8 @@ ion-searchbar {
 }
 
 .bpmNumber {
-    width: 25vmin;
-    height: 25vmin;
+    width: 28vmin;
+    height: 28vmin;
 
     border: 3px solid var(--ion-color-ruby);
 
