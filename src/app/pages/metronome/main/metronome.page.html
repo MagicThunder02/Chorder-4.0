@@ -132,15 +132,15 @@
                   <ion-col size="6">
                     <ion-text class="side-text">{{'Beats'}}</ion-text>
                   </ion-col>
-                  <ion-col size="2" class="ion-text-right">
+                  <ion-col size="2" class="ion-no-padding">
                     <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveBeat(track)">
                       <ion-icon name="remove"></ion-icon>
                     </ion-fab-button>
                   </ion-col>
-                  <ion-col size="2" class="ion-text-center">
+                  <ion-col size="2" class="center ion-no-padding">
                     <ion-text>{{track.beats}}</ion-text>
                   </ion-col>
-                  <ion-col size="2" class="ion-text-left">
+                  <ion-col size="2" class="ion-no-padding">
                     <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackAddBeat(track)">
                       <ion-icon name="add"></ion-icon>
                     </ion-fab-button>
@@ -151,17 +151,17 @@
                   <ion-col size="6">
                     <ion-text class="side-text">{{'Color'}}</ion-text>
                   </ion-col>
-                  <ion-col size="2" class="ion-text-right">
+                  <ion-col size="2" class="ion-no-padding">
                     <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveColor(track)">
                       <ion-icon name="caret-back"></ion-icon>
                     </ion-fab-button>
                   </ion-col>
-                  <ion-col size="2" class="ion-text-center">
+                  <ion-col size="2" class="center ion-no-padding">
                     <ion-fab-button size="small" [color]="track.color" class="action-button">
 
                     </ion-fab-button>
                   </ion-col>
-                  <ion-col size="2" class="ion-text-left">
+                  <ion-col size="2" class="ion-no-padding">
                     <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackAddColor(track)">
                       <ion-icon name="caret-forward"></ion-icon>
                     </ion-fab-button>
@@ -172,17 +172,17 @@
                   <ion-col size="6">
                     <ion-text class="side-text">{{'Sound'}}</ion-text>
                   </ion-col>
-                  <ion-col size="2" class="ion-text-right">
+                  <ion-col size="2" class="ion-no-padding">
                     <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveSound(track)">
                       <ion-icon name="caret-back"></ion-icon>
                     </ion-fab-button>
                   </ion-col>
-                  <ion-col size="2" class="ion-text-center">
+                  <ion-col size="2" class="center ion-no-padding">
                     <ion-icon size="large" src="assets/instruments-icons/{{track.sound}}.svg"
                       style="fill: var(--ion-color-medium);">
                     </ion-icon>
                   </ion-col>
-                  <ion-col size="2" class="ion-text-left">
+                  <ion-col size="2" class="ion-no-padding">
                     <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackAddSound(track)">
                       <ion-icon name="caret-forward"></ion-icon>
                     </ion-fab-button>

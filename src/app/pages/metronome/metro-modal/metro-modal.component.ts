@@ -126,7 +126,7 @@ export class MetroModalComponent implements OnInit {
       for (let i = 0; i < track.beats; i++) {
         track.drawings.balls.push(({ color: '--ion-color-medium', class: 'ball', diameter: 0, cX: 0, cY: 0 }));
       }
-      track.drawings.circle = { color: 'dark', diameter: 0, thickness: 2, cX: 0, cY: 0 };
+      track.drawings.circle = { color: 'var(--ion-color-dark)', diameter: 0, thickness: 2, cX: 0, cY: 0 };
     })
 
   }

@@ -27,6 +27,10 @@ const routes: Routes = [
       {
         path: 'metronome',
         loadChildren: () => import('./metronome/metronome.module').then(m => m.MetronomePageModule)
+      },
+      {
+        path: 'settings',
+        loadChildren: () => import('./settings/settings.module').then(m => m.SettingsPageModule)
       }
     ]
   },

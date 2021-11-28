@@ -165,6 +165,7 @@ export class MetronomePage implements OnInit {
     this.gestureArray.map((gesture) => gesture.destroy());
     this.gestureArray = [];
 
+    //each time the number of accordions change all the gesture instances are recreated
     this.accordionList.forEach(accordion => {
 
       let drag = this.gestureCtrl.create({
@@ -174,12 +175,13 @@ export class MetronomePage implements OnInit {
         gestureName: 'drag',
 
         onMove: (ev) => {
+          //translate horizonatally
           accordion.el.style.transform = `translate(${ev.deltaX}px, 0)`;
         },
 
         onEnd: (ev) => {
-          console.log(ev)
 
+          //if the accordion is abose half the page width it gets cancelled else it gers back to its position
           if (Math.abs(ev.deltaX) < this.platform.width() / 2) {
             accordion.el.style.transform = `translate(0, 0)`;
           }
@@ -191,9 +193,7 @@ export class MetronomePage implements OnInit {
       });
 
       drag.enable();
-      this.gestureArray.push(drag)
-      console.log(this.gestureArray);
-
+      this.gestureArray.push(drag);
     });
   }
 
@@ -330,7 +330,7 @@ export class MetronomePage implements OnInit {
   //-------------------------------------------------------------------
   // controlla che tutti i valori non sforino
   //-------------------------------------------------------------------
-  private checkValues() {
+  public checkValues() {
 
     if (this.metronome.bpm < 30) { this.metronome.bpm = 30; }
     if (this.metronome.bpm > 300) { this.metronome.bpm = 300; }

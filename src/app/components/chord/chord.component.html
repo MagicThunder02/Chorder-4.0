@@ -8,7 +8,7 @@
         </ion-fab-button>
       </ion-col>
       <ion-col [size]="6" class="center title">
-        {{ chord.symbol | musicNotation : notation }}
+        {{ chord.symbol | musicNotation : global.notation  }}
       </ion-col>
       <ion-col size="3" class="center">
         <ion-fab-button (click)="buttons[1].action()" class="action-button" color="ruby">
@@ -31,7 +31,7 @@
         <ion-grid>
           <ion-row>
             <ion-col size="4" class="ion-text-left">Full name:</ion-col>
-            <ion-col size="8" class="ion-text-right"> {{ chord.name | musicNotation : notation}} </ion-col>
+            <ion-col size="8" class="ion-text-right"> {{ chord.name | musicNotation : global.notation }} </ion-col>
           </ion-row>
           <ion-row>
             <ion-col size="6" class="ion-text-left">Quality:</ion-col>
@@ -39,7 +39,7 @@
           </ion-row>
           <ion-row>
             <ion-col size="6" class="ion-text-left">Aliases:</ion-col>
-            <ion-col size="6" class="ion-text-right"> {{ chord.aliases.join(', ') | musicNotation : notation }}
+            <ion-col size="6" class="ion-text-right"> {{ chord.aliases.join(', ') | musicNotation : global.notation  }}
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -54,7 +54,7 @@
       <ion-card-content>
         <ion-grid>
           <ion-row *ngFor="let note of chord.displayNotes; let i = index">
-            <ion-col size="4" class="ion-text-left">{{ note | musicNotation : notation }}</ion-col>
+            <ion-col size="4" class="ion-text-left">{{ note | musicNotation : global.notation  }}</ion-col>
             <ion-col size="2" class="ion-text-center"> {{ chord.intervals[i] }} </ion-col>
             <ion-col size="6" class="ion-text-right"> {{ chord.intervals[i] | intervalTransform }} </ion-col>
           </ion-row>
@@ -74,13 +74,13 @@
               <ng-container *ngIf="!chord.showExtensions">
                 <ion-chip *ngFor="let extension of  chord.extensions.slice(0, 3)" (click)="inputChord(extension)"
                   outline="true">
-                  <ion-label>{{ extension  | musicNotation : notation}}</ion-label>
+                  <ion-label>{{ extension  | musicNotation : global.notation }}</ion-label>
                 </ion-chip>
               </ng-container>
 
               <ng-container *ngIf="chord.showExtensions">
                 <ion-chip *ngFor="let extension of  chord.extensions" (click)="inputChord(extension)" outline="true">
-                  <ion-label>{{ extension  | musicNotation : notation}}</ion-label>
+                  <ion-label>{{ extension  | musicNotation : global.notation }}</ion-label>
                 </ion-chip>
               </ng-container>
 
@@ -105,13 +105,13 @@
               <ng-container *ngIf="!chord.showReductions">
                 <ion-chip *ngFor="let reduction of  chord.reductions.slice(0, 3)" (click)="inputChord(reduction)"
                   outline="true">
-                  <ion-label>{{ reduction  | musicNotation : notation}}</ion-label>
+                  <ion-label>{{ reduction  | musicNotation : global.notation }}</ion-label>
                 </ion-chip>
               </ng-container>
 
               <ng-container *ngIf="chord.showReductions">
                 <ion-chip *ngFor="let reduction of  chord.reductions" (click)="inputChord(reduction)" outline="true">
-                  <ion-label>{{ reduction  | musicNotation : notation}}</ion-label>
+                  <ion-label>{{ reduction  | musicNotation : global.notation }}</ion-label>
                 </ion-chip>
               </ng-container>
 
@@ -139,7 +139,7 @@
             <ion-col size="6" class="center">
 
               <ion-chip (click)="inputChord(chord.transposition)" color="dark" outline="true">
-                {{ chord.transposition | musicNotation : notation}}
+                {{ chord.transposition | musicNotation : global.notation }}
               </ion-chip>
 
             </ion-col>

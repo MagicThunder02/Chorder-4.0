@@ -9,7 +9,7 @@ import { ModalController } from '@ionic/angular';
 export class ChordmakerInfoComponent implements OnInit {
   @Input() buttons
 
-  constructor(private modalController: ModalController) { }
+  constructor(public modalController: ModalController) { }
 
   ngOnInit() {
 

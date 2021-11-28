@@ -2,18 +2,18 @@
   <ion-row>
     <ion-col *ngFor="let button of buttons" [size]="12 / buttons.length">
       <ion-fab *ngIf="button.children">
-        <ion-fab-button [ngClass]="'action-button tile-' + button.color">
+        <ion-fab-button [ngClass]="'action-button tile-' + button.color" color="ruby">
           <ion-icon [name]="button.icon"></ion-icon>
         </ion-fab-button>
         <ion-fab-list side="bottom">
           <ion-fab-button *ngFor="let child of button.children" (click)="button.action(child)"
-            [ngClass]="'action-button tile-' + button.color" style="font-weight: normal;">
+            [ngClass]="'action-button tile-' + button.color" style="font-weight: normal; " color="ruby">
             {{ child }}
           </ion-fab-button>
         </ion-fab-list>
       </ion-fab>
       <ion-fab-button *ngIf="!button.children" (click)="button.action()"
-        [ngClass]="'action-button tile-' + button.color">
+        [ngClass]="'action-button tile-' + button.color" color="ruby">
         <ion-icon [name]="button.icon"></ion-icon>
       </ion-fab-button>
     </ion-col>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Chord, Interval, Note } from '@tonaljs/tonal';
 import { ChordComponent } from 'src/app/components/chord/chord.component';
+import { GlobalService } from 'src/app/services/global.service';
 import { ChordmakerInfoComponent } from '../info/chordmaker-info.component';
 
 
@@ -49,9 +50,8 @@ export class ChordmakerPage implements OnInit {
   public tiles = [];
   public selectedTiles = [];
   public chords: any[] = [];
-  public notation: boolean = false;
 
-  constructor(private modalController: ModalController) {
+  constructor(public modalController: ModalController, public global: GlobalService) {
     this.initTiles();
   }
 
@@ -128,8 +128,12 @@ export class ChordmakerPage implements OnInit {
   // cambia notazione
   //-------------------------------------------------------------------
   public translateTiles() {
-    console.log('translate!');
-    this.notation = !this.notation;
+    if (this.global.notation == 'american') {
+      this.global.notation = 'european';
+    } else {
+      this.global.notation = 'american';
+    }
+    console.log('translate!', this.global.notation);
   }
   public async goToInfo() {
     console.log('info!');
@@ -244,7 +248,6 @@ export class ChordmakerPage implements OnInit {
       componentProps: {
         chord: chord,
         tilesList: this.selectedTiles,
-        notation: this.notation
       }
     });
     return await modal.present();

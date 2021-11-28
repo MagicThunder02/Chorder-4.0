@@ -1,0 +1,25 @@
+.option {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+
+
+    color: var(--ion-color-dark);
+
+    border-radius: 15px;
+    box-shadow: none;
+
+    --background: var(--ion-color-light);
+    // border: solid 3px var(--ion-color-ruby);
+ 
+}
+
+ion-item {
+    --background: var(--ion-color-light);
+}
+
+ion-avatar {
+    height: 8vw;
+    width: 8vw;
+}

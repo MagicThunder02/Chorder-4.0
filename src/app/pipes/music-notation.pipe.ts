@@ -1,21 +1,25 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { GlobalService } from '../services/global.service';
 
 @Pipe({
-  name: 'musicNotation'
+  name: 'musicNotation',
+  // pure: false
 })
 export class MusicNotationPipe implements PipeTransform {
 
-  public notation = ''
   constructor() {
   }
 
-  transform(value: string, translate: boolean, ...args: string[]): string {
+  transform(value: string, notation: string, ...args: string[]): string {
 
     if (value) {
 
+      console.log(notation);
       value = value.toString()
 
-      if (translate) {
+      if (notation == 'european') {
+        console.log('bbb');
+
 
         value = value.replaceAll('D', 'Re');
         value = value.replaceAll('C', 'Do');

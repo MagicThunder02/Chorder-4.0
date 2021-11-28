@@ -7,8 +7,7 @@ export class GlobalService {
 
   public darkmode: boolean = false;
   public notation: string = 'american';
-  public language: string = 'en';
-  public instrument: string = 'piano';
+  public language: string = 'english';
 
   constructor() { }
 }

@@ -7,7 +7,7 @@
       <ion-col *ngFor="let tile of tiles" size="4" class="tile-col">
 
         <ion-card button="true" (click)="selectTile(tile)" [ngClass]="'tile-card ' + tile.class">
-          {{ tile.name  | musicNotation : notation}}
+          {{ tile.name | musicNotation : global.notation }}
         </ion-card>
 
       </ion-col>
@@ -19,7 +19,7 @@
       <ion-col>
 
         <ion-card class="chord" style="margin:0;">
-          <ion-card-header>{{ chord  | musicNotation : notation }}</ion-card-header>
+          <ion-card-header>{{ chord | musicNotation : global.notation  }}</ion-card-header>
         </ion-card>
 
       </ion-col>

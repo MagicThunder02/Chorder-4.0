@@ -23,8 +23,12 @@ export class TabsPage {
       title: 'Metronome',
       tab: 'metronome',
       icon: 'hourglass'
+    },
+    {
+      title: 'Settings',
+      tab: 'settings',
+      icon: 'cog'
     }
-
   ]
 
   constructor() { }

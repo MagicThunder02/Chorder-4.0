@@ -2,6 +2,7 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Note, Chord, Interval } from '@tonaljs/tonal';
 import { AccidentPipe } from 'src/app/pipes/accident';
+import { GlobalService } from 'src/app/services/global.service';
 import * as Tone from 'tone'
 
 @Component({
@@ -51,7 +52,7 @@ export class ChordComponent implements OnInit {
   public synth;
 
 
-  constructor(private accidentPipe: AccidentPipe, private modalController: ModalController) { }
+  constructor(private accidentPipe: AccidentPipe, private modalController: ModalController, public global: GlobalService) { }
 
 
   //-------------------------------------------------------------------

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Chord, ChordType } from '@tonaljs/tonal';
 import { ChordComponent } from 'src/app/components/chord/chord.component';
+import { GlobalService } from 'src/app/services/global.service';
 import { SwiperComponent } from 'swiper/angular';
 import { NotefinderInfoComponent } from '../info/notefinder-info.component';
 
@@ -106,7 +107,7 @@ export class NotefinderPage implements OnInit {
   public notation: boolean = false;
 
 
-  constructor(private modalController: ModalController) { }
+  constructor(private modalController: ModalController, public global: GlobalService) { }
 
   //-------------------------------------------------------------------
   // sceglie dei parametri casuali per trovare degli accordi

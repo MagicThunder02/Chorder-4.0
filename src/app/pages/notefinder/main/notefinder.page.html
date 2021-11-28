@@ -11,7 +11,7 @@
         <swiper [loop]="true" [slidesPerView]="5" #swiper>
           <ng-template *ngFor="let note of notes" swiperSlide>
             <ion-fab-button [ngClass]="'action-button  ' + note.class" (click)="selectTile('note', note.name)">
-              {{ note.name | musicNotation:notation }}
+              {{ note.name | musicNotation : global.notation}}
             </ion-fab-button>
           </ng-template>
         </swiper>
@@ -69,7 +69,7 @@
       <ion-col>
 
         <ion-card class="chord">
-          <ion-card-header>{{ chord.symbol  | musicNotation : notation }}</ion-card-header>
+          <ion-card-header>{{ chord.symbol  | musicNotation : global.notation  }}</ion-card-header>
         </ion-card>
 
       </ion-col>

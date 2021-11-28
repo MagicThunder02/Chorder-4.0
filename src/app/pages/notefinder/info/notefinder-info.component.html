@@ -47,7 +47,7 @@
                                 <ion-col size="12/5" *ngFor="let note of notes.slice(0, 5)">
                                     <ion-fab-button
                                         [ngClass]="{ 'action-button':true, 'tile-ruby': note.name == 'C', 'tile-light' : note.name != 'C' }">
-                                        {{ note.name | musicNotation:notation }}
+                                        {{ note.name | musicNotation : global.notation}}
                                     </ion-fab-button>
                                 </ion-col>
                             </ion-row>
