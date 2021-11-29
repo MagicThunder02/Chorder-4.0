@@ -72,7 +72,7 @@ export class MetronomePage implements OnInit {
     },
     tracks: [
       {
-        name: `Metronome #${this.metronomeCounter++}`,
+        name: this.metronomeCounter++,
         beats: 4,
         color: this.colorArray[Math.floor(Math.random() * this.colorArray.length)], //colore casuale
         sound: 'woodblock',
@@ -100,7 +100,7 @@ export class MetronomePage implements OnInit {
 
     if (this.metronome.tracks.length < 3) {
       this.metronome.tracks.push({
-        name: `Metronome #${this.metronomeCounter++}`,
+        name: this.metronomeCounter++,
         beats: 4,
         color: tmpArray[Math.floor(Math.random() * tmpArray.length)], //colore casuale
         sound: 'woodblock',

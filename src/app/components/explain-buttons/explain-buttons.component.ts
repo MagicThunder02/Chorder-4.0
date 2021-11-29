@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ExplainButtonsComponent implements OnInit {
 
   @Input() buttons
+  @Input() context
 
   constructor() { }
 

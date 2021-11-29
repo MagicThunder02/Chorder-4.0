@@ -10,6 +10,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
 import { MetroModalComponent } from './metro-modal/metro-modal.component';
 import { MetronomeInfoComponent } from './info/metronome-info.component';
 import { MetronomeModalInfoComponent } from './modal-info/metronome-modal-info.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     ComponentsModule,
+    TranslateModule,
     RouterModule.forChild(routes)
   ],
   declarations: [MetronomePage, MetronomeInfoComponent, MetroModalComponent, MetronomeModalInfoComponent]

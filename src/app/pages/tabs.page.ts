@@ -10,22 +10,22 @@ export class TabsPage {
   public tabPages = [
 
     {
-      title: 'Chordmaker',
+      title: 'chordmaker',
       tab: 'chordmaker',
       icon: 'hammer'
     },
     {
-      title: 'Notefinder',
+      title: 'notefinder',
       tab: 'notefinder',
       icon: 'search'
     },
     {
-      title: 'Metronome',
+      title: 'metronome',
       tab: 'metronome',
       icon: 'hourglass'
     },
     {
-      title: 'Settings',
+      title: 'settings',
       tab: 'settings',
       icon: 'cog'
     }

@@ -3,7 +3,7 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="12" class="title">Tonic</ion-col>
+      <ion-col size="12" class="title"> {{'notefinder.main.tonic' | translate }}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col size="12">
@@ -22,13 +22,13 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="12" class="title">Quality</ion-col>
+      <ion-col size="12" class="title"> {{'notefinder.main.quality' | translate }}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col size="6" *ngFor="let quality of qualities">
 
         <ion-card button="true" [ngClass]="'tile-card  ' + quality.class" (click)="selectTile('quality', quality.name)">
-          {{ quality.name | titlecase}}
+          {{ 'notefinder.main.' + quality.name | translate }}
         </ion-card>
 
       </ion-col>
@@ -37,7 +37,7 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="12" class="title">Grade</ion-col>
+      <ion-col size="12" class="title"> {{'notefinder.main.grade' | translate }}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col size="12/5" *ngFor="let num of numbers">
@@ -52,7 +52,7 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="12" class="title">Search</ion-col>
+      <ion-col size="12" class="title"> {{'notefinder.main.search' | translate }}</ion-col>
     </ion-row>
     <ion-row>
       <ion-col size="12">

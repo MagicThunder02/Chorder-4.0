@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-notefinder-info',
@@ -12,7 +13,7 @@ export class NotefinderInfoComponent implements OnInit {
   @Input() qualities;
   @Input() numbers;
 
-  constructor(public modalController: ModalController) { }
+  constructor(public modalController: ModalController, public global: GlobalService) { }
 
   ngOnInit() {
 

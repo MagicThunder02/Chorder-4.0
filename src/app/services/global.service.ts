@@ -6,8 +6,8 @@ import { Injectable, OnInit } from '@angular/core';
 export class GlobalService {
 
   public darkmode: boolean = false;
-  public notation: string = 'american';
-  public language: string = 'english';
+  public notation: string = 'us';
+  public language: string = 'en';
 
   constructor() { }
 }

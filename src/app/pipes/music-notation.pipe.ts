@@ -14,12 +14,9 @@ export class MusicNotationPipe implements PipeTransform {
 
     if (value) {
 
-      console.log(notation);
       value = value.toString()
 
       if (notation == 'european') {
-        console.log('bbb');
-
 
         value = value.replaceAll('D', 'Re');
         value = value.replaceAll('C', 'Do');

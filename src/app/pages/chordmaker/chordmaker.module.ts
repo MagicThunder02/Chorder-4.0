@@ -13,6 +13,7 @@ import { SwiperModule } from 'swiper/angular';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { ChordmakerInfoComponent } from './info/chordmaker-info.component';
 import { ExplainButtonsComponent } from 'src/app/components/explain-buttons/explain-buttons.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
     SwiperModule,
     PipesModule,
     ComponentsModule,
+    TranslateModule,
     RouterModule.forChild(routes)
   ],
   declarations: [ChordmakerPage, ChordmakerInfoComponent],

@@ -5,19 +5,18 @@
       <ion-col size="12" class="center">
         <ion-card class="center tile-light" style="width: 100%;">
           <ion-card-header>
-            <ion-card-title color="dark">Settings</ion-card-title>
+            <ion-card-title color="dark">{{'settings.main.title' | translate}}</ion-card-title>
           </ion-card-header>
 
         </ion-card>
       </ion-col>
-
     </ion-row>
   </ion-grid>
 
   <ion-grid #generic>
     <ion-row>
       <ion-col>
-        <ion-title>Generic</ion-title>
+        <ion-title>{{'settings.main.generic' | translate}}</ion-title>
       </ion-col>
     </ion-row>
 
@@ -29,18 +28,18 @@
               <ion-avatar slot="start">
                 <img src="/assets/flags/{{global.language}}.svg">
               </ion-avatar>
-              <ion-label> {{global.language | titlecase}} </ion-label>
+              <ion-label> {{'settings.main.language' | translate}} </ion-label>
             </ion-item>
 
             <ion-list slot="content">
-              <ng-container *ngFor="let language of languages">
-                <ion-item *ngIf="language != global.language" (click)="setLanguage(language)">
-                  <ion-avatar slot="start">
-                    <img src="/assets/flags/{{language}}.svg">
-                  </ion-avatar>
-                  <ion-label> {{language | titlecase}} </ion-label>
-                </ion-item>
-              </ng-container>
+
+              <ion-item *ngFor="let language of languages" (click)="setLanguage(language)">
+                <ion-avatar slot="start">
+                  <img src="/assets/flags/{{language}}.svg">
+                </ion-avatar>
+                <ion-label> {{'settings.main.'+language | translate}} </ion-label>
+              </ion-item>
+
             </ion-list>
           </ion-accordion>
         </ion-accordion-group>
@@ -55,18 +54,18 @@
               <ion-avatar slot="start">
                 <img src="/assets/flags/{{global.notation}}.svg">
               </ion-avatar>
-              <ion-label> {{global.notation | titlecase}} </ion-label>
+              <ion-label> {{'settings.main.notation' | translate}} </ion-label>
             </ion-item>
 
             <ion-list slot="content">
-              <ng-container *ngFor="let notation of notations">
-                <ion-item *ngIf="notation != global.notation" (click)="setNotation(notation)">
-                  <ion-avatar slot="start">
-                    <img src="/assets/flags/{{notation}}.svg">
-                  </ion-avatar>
-                  <ion-label> {{notation | titlecase}} </ion-label>
-                </ion-item>
-              </ng-container>
+
+              <ion-item *ngFor="let notation of notations" (click)="setNotation(notation)">
+                <ion-avatar slot="start">
+                  <img src="/assets/flags/{{notation}}.svg">
+                </ion-avatar>
+                <ion-label> {{'settings.main.'+notation | translate}}</ion-label>
+              </ion-item>
+
             </ion-list>
           </ion-accordion>
         </ion-accordion-group>
@@ -76,7 +75,7 @@
       <ion-col>
         <ion-item class="option" lines="none">
           <ion-icon name="moon" slot="start"></ion-icon>
-          <ion-label>Darkmode</ion-label>
+          <ion-label>{{'settings.main.darkmode' | translate}}</ion-label>
 
           <ion-toggle slot="end" color="ruby" [(ngModel)]="darkmode" (ionChange)="setDarkmode()"></ion-toggle>
         </ion-item>

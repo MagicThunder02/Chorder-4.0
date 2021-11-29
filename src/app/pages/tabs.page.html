@@ -6,7 +6,7 @@
     <ion-tab-button *ngFor="let tabPage of tabPages" [tab]="tabPage.tab"
       style="--color-selected: var(--ion-color-ruby);">
       <ion-icon [name]="tabPage.icon" size="small"></ion-icon>
-      <ion-label> {{ tabPage.title }}</ion-label>
+      <ion-label> {{tabPage.title+'.main.title' | translate}}</ion-label>
     </ion-tab-button>
 
 

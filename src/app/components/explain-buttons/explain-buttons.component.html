@@ -1,7 +1,7 @@
 <ion-card class="tile-light">
   <ion-card-header>
     <ion-card-title color="dark">
-      What do the buttons do?
+      {{context + '.info.buttons.what' | translate }}
     </ion-card-title>
   </ion-card-header>
   <ion-card-content>
@@ -15,8 +15,8 @@
             </ion-fab-button>
           </ion-col>
           <ion-col>
-            <ion-card-subtitle> {{ button.name }}</ion-card-subtitle>
-            {{ button.description }}
+            <ion-card-subtitle> {{ context + '.info.buttons.' + button.name  | translate}}</ion-card-subtitle>
+            {{ context + '.info.buttons.' + button.name + '-text' | translate }}
           </ion-col>
         </ng-container>
       </ion-row>

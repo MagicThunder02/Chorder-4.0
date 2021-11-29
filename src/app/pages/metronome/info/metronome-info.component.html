@@ -4,7 +4,7 @@
         <ion-row>
             <ion-col size="3"> </ion-col>
             <ion-col size="6" class="center title">
-                <ion-text color="dark"> Metonome Info </ion-text>
+                <ion-text color="dark"> {{'metronome.main.title' | translate }} Info </ion-text>
             </ion-col>
             <ion-col size="3" class="center">
                 <ion-fab-button (click)="modalController.dismiss()" class="action-button" color="ruby">
@@ -14,28 +14,28 @@
         </ion-row>
     </ion-grid>
 
-    <ion-card class="tile-light">
+    <ion-card class="tile-light" style="margin-top: 0;">
         <ion-card-header>
             <ion-card-title color="dark">
-                What is Metronome?
+                {{'metronome.info.card1.what' | translate }}
             </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            Metonome is a free Metronome and polyrhythm generator.
+            {{'metronome.info.card1.text' | translate }}
         </ion-card-content>
     </ion-card>
 
     <ion-card class="tile-light">
         <ion-card-header>
             <ion-card-title color="dark">
-                How to use it?
+                {{'metronome.info.card2.how' | translate }}
             </ion-card-title>
         </ion-card-header>
         <ion-card-content>
 
-            <ion-card-subtitle>TEMPO</ion-card-subtitle>
+            <ion-card-subtitle>{{'metronome.info.card2.tempo' | translate }}</ion-card-subtitle>
             <ion-text>
-                All the bpm options
+                {{'metronome.info.card2.tempo-text' | translate }}
             </ion-text>
 
             <ion-grid>
@@ -47,9 +47,8 @@
                         </ion-fab-button>
                     </ion-col>
                     <ion-col>
-                        <ion-card-subtitle> Bpm </ion-card-subtitle>
-                        Here you can check the current bpm value.
-                        You can change its value using the slider, the buttons or the tap feature
+                        <ion-card-subtitle> {{'metronome.info.card2.bpm' | translate }} </ion-card-subtitle>
+                        {{'metronome.info.card2.bpm-text' | translate }}
                     </ion-col>
                 </ion-row>
 
@@ -60,15 +59,15 @@
                         </ion-fab-button>
                     </ion-col>
                     <ion-col>
-                        <ion-card-subtitle> Tap </ion-card-subtitle>
-                        Tap along with a song beat to adjust the metronome to the song bpm
+                        <ion-card-subtitle> {{'metronome.info.card2.tap' | translate }} </ion-card-subtitle>
+                        {{'metronome.info.card2.tap-text' | translate }}
                     </ion-col>
                 </ion-row>
             </ion-grid>
 
-            <ion-card-subtitle>TRAIN</ion-card-subtitle>
+            <ion-card-subtitle>{{'metronome.info.card2.training' | translate }}</ion-card-subtitle>
             <ion-text>
-                Train yourself increasing the bpm over time
+                {{'metronome.info.card2.training-text' | translate }}
             </ion-text>
 
             <ion-grid>
@@ -79,8 +78,8 @@
                         </ion-fab-button>
                     </ion-col>
                     <ion-col>
-                        <ion-card-subtitle> INCREASE </ion-card-subtitle>
-                        Activates the train mode
+                        <ion-card-subtitle> {{'metronome.info.card2.start' | translate }} </ion-card-subtitle>
+                        {{'metronome.info.card2.start-text' | translate }}
                     </ion-col>
                 </ion-row>
                 <ion-row>
@@ -91,8 +90,8 @@
                         </ion-fab-button>
                     </ion-col>
                     <ion-col>
-                        <ion-card-subtitle> Final </ion-card-subtitle>
-                        Sets when the metronome will stop increasing
+                        <ion-card-subtitle> {{'metronome.info.card2.final' | translate }} </ion-card-subtitle>
+                        {{'metronome.info.card2.final-text' | translate }}
                     </ion-col>
                 </ion-row>
                 <ion-row>
@@ -103,8 +102,8 @@
                         </ion-fab-button>
                     </ion-col>
                     <ion-col>
-                        <ion-card-subtitle> Step </ion-card-subtitle>
-                        Sets the number of bpm added each time
+                        <ion-card-subtitle> {{'metronome.info.card2.step' | translate }} </ion-card-subtitle>
+                        {{'metronome.info.card2.step-text' | translate }}
                     </ion-col>
                 </ion-row>
                 <ion-row>
@@ -115,16 +114,16 @@
                         </ion-fab-button>
                     </ion-col>
                     <ion-col>
-                        <ion-card-subtitle> Measures </ion-card-subtitle>
-                        Sets the number of measure between each increment
+                        <ion-card-subtitle> {{'metronome.info.card2.measures' | translate }} </ion-card-subtitle>
+                        {{'metronome.info.card2.measures-text' | translate }}
                     </ion-col>
                 </ion-row>
             </ion-grid>
 
 
-            <ion-card-subtitle>CUSTOMIZE</ion-card-subtitle>
+            <ion-card-subtitle>{{'metronome.info.card2.customize' | translate }}</ion-card-subtitle>
             <ion-text>
-                Change the color and sound of every metronome
+                {{'metronome.info.card2.customize-text' | translate }}
             </ion-text>
 
             <ion-grid>
@@ -136,8 +135,8 @@
                         </ion-fab-button>
                     </ion-col>
                     <ion-col>
-                        <ion-card-subtitle> Beats </ion-card-subtitle>
-                        Changes the number of beats for each measure
+                        <ion-card-subtitle> {{'metronome.info.card2.beats' | translate }} </ion-card-subtitle>
+                        {{'metronome.info.card2.beats-text' | translate }}
                     </ion-col>
                 </ion-row>
 
@@ -147,8 +146,8 @@
                         </ion-fab-button>
                     </ion-col>
                     <ion-col>
-                        <ion-card-subtitle> Color </ion-card-subtitle>
-                        Changes the color of this metronome
+                        <ion-card-subtitle> {{'metronome.info.card2.color' | translate }} </ion-card-subtitle>
+                        {{'metronome.info.card2.color-text' | translate }}
                     </ion-col>
                 </ion-row>
 
@@ -162,8 +161,8 @@
 
                     </ion-col>
                     <ion-col>
-                        <ion-card-subtitle> Sound </ion-card-subtitle>
-                        Changes the sound of this metronome
+                        <ion-card-subtitle> {{'metronome.info.card2.sound' | translate }} </ion-card-subtitle>
+                        {{'metronome.info.card2.sound-text' | translate }}
                     </ion-col>
                 </ion-row>
             </ion-grid>
@@ -172,6 +171,6 @@
         </ion-card-content>
     </ion-card>
 
-    <explain-buttons [buttons]="buttons"></explain-buttons>
+    <explain-buttons [buttons]="buttons" [context]="'metronome'"></explain-buttons>
 
 </ion-content>

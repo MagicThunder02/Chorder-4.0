@@ -56,7 +56,7 @@
     <ng-container *ngIf="metronome.train.active">
       <ion-row #final class="center">
         <ion-col size="5.5">
-          <ion-text class="side-text">{{'Final Bpm'}}</ion-text>
+          <ion-text class="side-text">{{ 'metronome.main.measures' | translate }}</ion-text>
         </ion-col>
         <ion-col size="2.5" class="center">
           <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('final')">
@@ -75,7 +75,7 @@
 
       <ion-row #step class="center">
         <ion-col size="5.5">
-          <ion-text class="side-text">{{'Step Bpm'}}</ion-text>
+          <ion-text class="side-text">{{'metronome.main.step' | translate }}</ion-text>
         </ion-col>
         <ion-col size="2.5" class="center">
           <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('step')">
@@ -93,8 +93,8 @@
       </ion-row>
 
       <ion-row #measure class="center">
-        <ion-col size="5.5" class="center">
-          <ion-text class="side-text">{{'Measures Bpm'}}</ion-text>
+        <ion-col size="5.5">
+          <ion-text class="side-text">{{'metronome.main.measures' | translate }}</ion-text>
         </ion-col>
         <ion-col size="2.5" class="center">
           <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('measures')">
@@ -123,14 +123,14 @@
             *ngFor="let track of metronome.tracks" #accordion>
             <ion-item slot="header" style="--background: var(--ion-color-light);">
               <!-- <ion-input [(ngModel)]="track.name"></ion-input> -->
-              <ion-label> {{track.name}} </ion-label>
+              <ion-label> {{'metronome.main.metronome' | translate }} {{ '#' + track.name }} </ion-label>
             </ion-item>
 
             <ion-list slot="content" style="background: var(--ion-color-light);">
               <ion-grid>
                 <ion-row #beats class="center">
                   <ion-col size="6">
-                    <ion-text class="side-text">{{'Beats'}}</ion-text>
+                    <ion-text class="side-text">{{'metronome.main.beats' | translate }}</ion-text>
                   </ion-col>
                   <ion-col size="2" class="ion-no-padding">
                     <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveBeat(track)">
@@ -149,7 +149,7 @@
 
                 <ion-row #color class="center">
                   <ion-col size="6">
-                    <ion-text class="side-text">{{'Color'}}</ion-text>
+                    <ion-text class="side-text">{{'metronome.main.color' | translate }}</ion-text>
                   </ion-col>
                   <ion-col size="2" class="ion-no-padding">
                     <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveColor(track)">
@@ -170,7 +170,7 @@
 
                 <ion-row #sound class="center">
                   <ion-col size="6">
-                    <ion-text class="side-text">{{'Sound'}}</ion-text>
+                    <ion-text class="side-text">{{'metronome.main.sound' | translate }}</ion-text>
                   </ion-col>
                   <ion-col size="2" class="ion-no-padding">
                     <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveSound(track)">

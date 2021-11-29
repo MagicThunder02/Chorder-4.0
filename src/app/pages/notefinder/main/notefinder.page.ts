@@ -188,8 +188,12 @@ export class NotefinderPage implements OnInit {
   // cambia notazione
   //-------------------------------------------------------------------
   public translateTiles() {
-    console.log('translate!');
-    this.notation = !this.notation;
+    if (this.global.notation == 'american') {
+      this.global.notation = 'european';
+    } else {
+      this.global.notation = 'american';
+    }
+    console.log('translate!', this.global.notation);
   }
   public async goToInfo() {
     console.log('info!');

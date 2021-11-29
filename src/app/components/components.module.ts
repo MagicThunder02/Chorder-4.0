@@ -10,6 +10,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { SwiperModule } from 'swiper/angular';
 import { AccidentPipe } from '../pipes/accident';
 import { ExplainButtonsComponent } from './explain-buttons/explain-buttons.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { ExplainButtonsComponent } from './explain-buttons/explain-buttons.compo
     FormsModule,
     IonicModule,
     SwiperModule,
+    TranslateModule,
     PipesModule
   ],
   declarations: [ChordComponent, ActionButtonsComponent, ExplainButtonsComponent],

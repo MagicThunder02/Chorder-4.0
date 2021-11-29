@@ -22,7 +22,6 @@ export class ChordmakerPage implements OnInit {
       icon: 'shuffle',
       color: 'ruby',
       action: (num) => this.randomizeTiles(num),
-      description: 'Selects a number of note randomy',
       children: [3, 4, 5]
     },
     {
@@ -30,14 +29,12 @@ export class ChordmakerPage implements OnInit {
       icon: 'trash',
       color: 'ruby',
       action: () => this.deleteTiles(),
-      description: 'Unselects all the notes'
     },
     {
       name: 'translate',
       icon: 'language',
       color: 'ruby',
       action: () => this.translateTiles(),
-      description: 'Changes the notation of notes'
     },
     {
       name: 'info',

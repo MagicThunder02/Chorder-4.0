@@ -4,7 +4,7 @@
         <ion-row>
             <ion-col size="3"> </ion-col>
             <ion-col size="6" class="center title">
-                <ion-text color="dark"> Notefinder Info </ion-text>
+                <ion-text color="dark"> {{'notefinder.main.title' | translate }} Info </ion-text>
             </ion-col>
             <ion-col size="3" class="center">
                 <ion-fab-button (click)="modalController.dismiss()" class="action-button" color="ruby">
@@ -14,28 +14,27 @@
         </ion-row>
     </ion-grid>
 
-    <ion-card class="tile-light">
+    <ion-card class="tile-light" style="margin-top: 0;">
         <ion-card-header>
             <ion-card-title color="dark">
-                What is Metonome?
+                {{'notefinder.info.card1.what' | translate }}
             </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            Notefinder is a free chord encyclopedia where you can search for chords.
+            {{'notefinder.info.card1.text' | translate }}
         </ion-card-content>
     </ion-card>
 
     <ion-card class="tile-light">
         <ion-card-header>
             <ion-card-title color="dark">
-                How to use it?
+                {{'notefinder.info.card2.how' | translate }}
             </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            <ion-card-subtitle>SELECT</ion-card-subtitle>
+            <ion-card-subtitle> {{'notefinder.info.card2.select' | translate }} </ion-card-subtitle>
             <ion-text>
-                You can select a tonic and then filter by quality, grade or simply type the chord symbol in the
-                searchbar.
+                {{'notefinder.info.card2.select-text' | translate }}
             </ion-text>
 
             <ion-grid class="ion-no-padding" style="margin-top: 1rem; margin-bottom: 1rem;" #selectorWrapper>
@@ -47,7 +46,7 @@
                                 <ion-col size="12/5" *ngFor="let note of notes.slice(0, 5)">
                                     <ion-fab-button
                                         [ngClass]="{ 'action-button':true, 'tile-ruby': note.name == 'C', 'tile-light' : note.name != 'C' }">
-                                        {{ note.name | musicNotation : global.notation}}
+                                        {{ note.name | musicNotation : global.notation }}
                                     </ion-fab-button>
                                 </ion-col>
                             </ion-row>
@@ -59,7 +58,7 @@
 
                                     <ion-card button="true"
                                         [ngClass]="{ 'tile-card':true, 'tile-ruby': quality.name == 'minor', 'tile-light' : quality.name != 'minor' }">
-                                        {{ quality.name | titlecase}}
+                                        {{ 'notefinder.main.' + quality.name | translate}}
                                     </ion-card>
 
                                 </ion-col>
@@ -72,7 +71,7 @@
 
                                     <ion-fab-button
                                         [ngClass]="{ 'action-button':true, 'tile-ruby': num.name == '7', 'tile-light' : num.name != '7' }">
-                                        {{ num.name}}
+                                        {{ num.name }}
                                     </ion-fab-button>
 
                                 </ion-col>
@@ -83,7 +82,7 @@
                             <ion-row>
                                 <ion-col>
 
-                                    <ion-searchbar placeholder="Cmin7" disabled>
+                                    <ion-searchbar [placeholder]="'Cmin7' | musicNotation : global.notation" disabled>
                                     </ion-searchbar>
 
                                 </ion-col>
@@ -94,20 +93,19 @@
                 </ion-row>
             </ion-grid>
 
-            <ion-card-subtitle>FIND</ion-card-subtitle>
+            <ion-card-subtitle>{{ 'notefinder.info.card2.search' | translate}}</ion-card-subtitle>
             <ion-text>
-                All the chords found with the selected filters will be displayed.
-                Click on a chord to see all its traits and infos.
+                {{ 'notefinder.info.card2.search-text' | translate}}
             </ion-text>
 
 
             <ion-card class="chord" style="margin-top: 1rem;">
-                <ion-card-header> Cmin7 </ion-card-header>
+                <ion-card-header> {{'Cmin7' | musicNotation : global.notation}} </ion-card-header>
             </ion-card>
 
         </ion-card-content>
     </ion-card>
 
-    <explain-buttons [buttons]="buttons"></explain-buttons>
+    <explain-buttons [buttons]="buttons" [context]="'notefinder'"></explain-buttons>
 
 </ion-content>

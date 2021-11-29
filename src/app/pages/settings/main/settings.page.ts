@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
@@ -8,18 +9,17 @@ import { GlobalService } from 'src/app/services/global.service';
 })
 export class SettingsPage implements OnInit {
 
-  public languages: string[] = ['english', 'italian'];
-  public notations: string[] = ['american', 'european'];
+  public languages: string[] = ['en', 'it'];
+  public notations: string[] = ['us', 'eu'];
   public darkmode = false;
+  public test = 'test';
 
-  constructor(public global: GlobalService) {
-
-    // this.translate.setDefaultLang(this.global.language);
-    // this.translate.use(this.global.language);
+  constructor(public global: GlobalService, private translate: TranslateService) {
   }
 
   public setLanguage(language) {
     this.global.language = language;
+    this.translate.use(this.global.language);
   }
 
   public setNotation(notation) {
