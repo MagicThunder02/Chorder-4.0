@@ -11,8 +11,6 @@ export class SettingsPage implements OnInit {
 
   public languages: string[] = ['en', 'it'];
   public notations: string[] = ['us', 'eu'];
-  public darkmode = false;
-  public test = 'test';
 
   constructor(public global: GlobalService, private translate: TranslateService) {
   }
@@ -20,19 +18,26 @@ export class SettingsPage implements OnInit {
   public setLanguage(language) {
     this.global.language = language;
     this.translate.use(this.global.language);
+
+    localStorage.setItem('language', this.global.language);
   }
 
   public setNotation(notation) {
     this.global.notation = notation;
+    localStorage.setItem('notation', this.global.notation);
+
   }
 
   public setDarkmode() {
-    if (this.darkmode) {
+    if (this.global.darkmode) {
       document.body.setAttribute('color-theme', 'dark');
+      localStorage.setItem('darkmode', 'true');
     }
     else {
       document.body.setAttribute('color-theme', 'light');
+      localStorage.setItem('darkmode', 'false');
     }
+
   }
 
   ngOnInit() {
