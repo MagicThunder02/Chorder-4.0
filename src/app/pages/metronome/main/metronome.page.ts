@@ -18,21 +18,18 @@ export class MetronomePage implements OnInit {
       icon: 'add',
       color: 'ruby',
       action: () => this.addMetronome(),
-      description: 'Add a metronome to create a polyrhythm'
     },
     {
       name: 'delete',
       icon: 'trash',
       color: 'ruby',
       action: () => this.deleteMetro(),
-      description: 'Deletes the last metronome'
     },
     {
       name: 'play',
       icon: 'play',
       color: 'ruby',
       action: () => this.playMetronome(),
-      description: 'Starts the metronome'
     },
     {
       name: 'info',

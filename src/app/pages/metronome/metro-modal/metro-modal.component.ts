@@ -21,21 +21,18 @@ export class MetroModalComponent implements OnInit {
       icon: 'arrow-back',
       color: 'ruby',
       action: () => this.goBack(),
-      description: 'Goes back to the metronome options'
     },
     {
-      name: 'animate',
+      name: 'animations',
       icon: 'eye',
       color: 'ruby',
       action: () => this.animateMetro(),
-      description: 'Toggles the animations of the metronome'
     },
     {
       name: 'mute',
       icon: 'volume-high',
       color: 'ruby',
       action: () => this.muteMetro(),
-      description: 'Mutes the metronome'
     },
     {
       name: 'info',
@@ -94,8 +91,8 @@ export class MetroModalComponent implements OnInit {
   // go to info
   //-------------------------------------------------------------------
   public async goToInfo() {
-    Tone.Transport.stop()
-    Tone.Transport.cancel()
+    this.stopMetronome()
+
     console.log('info!');
 
     const modal = await this.modalController.create({
@@ -255,7 +252,7 @@ export class MetroModalComponent implements OnInit {
           this.animateBall(track.drawings.balls[ballIdx], track.color)
         }
 
-        console.log('idx', ballIdx);
+        // console.log('idx', ballIdx);
         ballIdx++;
 
         this.increaseBpm()
@@ -275,6 +272,7 @@ export class MetroModalComponent implements OnInit {
       }, trackTime).start(0);
 
     })
+
   }
 
   private increaseBpm() {
@@ -306,15 +304,24 @@ export class MetroModalComponent implements OnInit {
   }
 
   public playMetronome() {
+
+    this.stopMetronome()
+
+    this.createLoop()
+
     Tone.Transport.position = 0;
     Tone.Transport.start();
-    // Tone.Transport.start(0);
     console.log('start');
 
   }
 
-  public pauseMetronome() {
+  public stopMetronome() {
     Tone.Transport.stop()
+
+    this.metronome.train.count = 0
+
+    Tone.Transport.cancel()
+
     console.log('stop');
   }
 
@@ -333,7 +340,6 @@ export class MetroModalComponent implements OnInit {
 
     Tone.start()
     this.initializeMetronome()
-    this.createLoop()
 
     console.log('tracks:', this.metronome.tracks);
 

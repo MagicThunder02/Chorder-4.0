@@ -4,7 +4,7 @@
         <ion-row>
             <ion-col size="3"> </ion-col>
             <ion-col size="6" class="center title">
-                <ion-text color="dark"> Metonome Info </ion-text>
+                <ion-text color="dark"> {{'metronome.main.title' | translate }} Info </ion-text>
             </ion-col>
             <ion-col size="3" class="center">
                 <ion-fab-button (click)="modalController.dismiss()" class="action-button" color="ruby">
@@ -14,6 +14,6 @@
         </ion-row>
     </ion-grid>
 
-    <explain-buttons [buttons]="buttons"></explain-buttons>
+    <explain-buttons [buttons]="buttons" [context]="'metronome.modal'"></explain-buttons>
 
 </ion-content>
