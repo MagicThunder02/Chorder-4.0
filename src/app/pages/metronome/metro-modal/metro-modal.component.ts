@@ -279,7 +279,7 @@ export class MetroModalComponent implements OnInit {
     if (this.metronome.train.active) {
 
 
-      console.log('count', this.metronome.train.count);
+      // console.log('count', this.metronome.train.count);
 
       if (this.metronome.bpm < this.metronome.train.final) {
 
