@@ -11,6 +11,8 @@ import { MetroModalComponent } from '../metro-modal/metro-modal.component';
 export class MetronomePage implements OnInit {
 
   @ViewChildren('accordion') accordionList
+  @ViewChildren('addbutton') addbuttons
+  @ViewChildren('removebutton') removebuttons
 
   public buttons = [
     {
@@ -158,7 +160,7 @@ export class MetronomePage implements OnInit {
   //-------------------------------------------------------------------
   // gestisce la cancellazione dei metronomi
   //-------------------------------------------------------------------
-  public gestureMetronome() {
+  public gestureDeleteMetronome() {
     this.gestureArray.map((gesture) => gesture.destroy());
     this.gestureArray = [];
 
@@ -193,6 +195,35 @@ export class MetronomePage implements OnInit {
       this.gestureArray.push(drag);
     });
   }
+
+
+  //-------------------------------------------------------------------
+  // gestisce la cancellazione dei metronomi
+  //-------------------------------------------------------------------
+  public gestureLongPress() {
+
+    let timeout
+    let timer
+    //each time the number of accordions change all the gesture instances are recreated
+    this.addbuttons.forEach(button => {
+
+      let press = this.gestureCtrl.create({
+        el: button.el,
+        gestureName: 'press',
+        onStart: (ev) => {
+
+          timeout = setTimeout(() => {
+            timer = setInterval(() => {
+
+            }, 100)
+          }, 2000);
+        },
+      });
+
+      press.enable();
+    });
+  }
+
 
   //-------------------------------------------------------------------
   // attiva o disattiva la modalità train
@@ -265,14 +296,21 @@ export class MetronomePage implements OnInit {
   //-------------------------------------------------------------------
   // aggiungono o tolgono 1 dai vari valori
   //-------------------------------------------------------------------
-  public removeBpm() {
-    this.metronome.bpm--;
+  public remove(context) {
+    console.log(context);
+    this.metronome[context]--;
+
     this.checkValues();
   }
-  public addBpm() {
-    this.metronome.bpm++;
+  public add(context) {
+    let tmp = context.split('.')
+    console.log(this.metronome[tmp[0]][tmp[1]]);
+    this.metronome[context]++;
+
+
     this.checkValues();
   }
+
   public trainRemoveBpm(type) {
     this.metronome.train[type]--;
     this.checkValues();
@@ -390,11 +428,11 @@ export class MetronomePage implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.gestureMetronome();
+    this.gestureDeleteMetronome();
     console.log('aaa');
 
     this.accordionList.changes.subscribe((res) => {
-      this.gestureMetronome();
+      this.gestureDeleteMetronome();
     });
   }
 

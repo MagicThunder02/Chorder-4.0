@@ -11,6 +11,8 @@ import { SwiperModule } from 'swiper/angular';
 import { AccidentPipe } from '../pipes/accident';
 import { ExplainButtonsComponent } from './explain-buttons/explain-buttons.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddButtonsComponent } from './add-button/add-button.component';
+import { RemoveButtonsComponent } from './remove-button/remove-button.component';
 
 @NgModule({
   imports: [
@@ -21,8 +23,8 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule,
     PipesModule
   ],
-  declarations: [ChordComponent, ActionButtonsComponent, ExplainButtonsComponent],
-  exports: [ChordComponent, ActionButtonsComponent, ExplainButtonsComponent],
+  declarations: [ChordComponent, ActionButtonsComponent, ExplainButtonsComponent, AddButtonsComponent, RemoveButtonsComponent],
+  exports: [ChordComponent, ActionButtonsComponent, ExplainButtonsComponent, AddButtonsComponent, RemoveButtonsComponent],
   providers: [AccidentPipe]
 })
 export class ComponentsModule { }
