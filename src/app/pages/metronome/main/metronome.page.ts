@@ -14,6 +14,7 @@ export class MetronomePage implements OnInit {
   @ViewChildren('addbutton') addbuttons
   @ViewChildren('removebutton') removebuttons
 
+
   public buttons = [
     {
       name: 'add',
@@ -48,6 +49,7 @@ export class MetronomePage implements OnInit {
 
   public metronome = {
     bpm: 120,
+    status: false,
     tempo: 'allegro',
     mute: false,
     animation: true,
@@ -112,6 +114,7 @@ export class MetronomePage implements OnInit {
 
     }
 
+    this.checkValues();
     console.log('add!');
 
   }
@@ -120,6 +123,7 @@ export class MetronomePage implements OnInit {
   //-------------------------------------------------------------------
   public deleteMetro() {
     this.metronome.tracks.pop()
+    this.checkValues();
     console.log('delete!');
   }
   //-------------------------------------------------------------------
@@ -206,15 +210,18 @@ export class MetronomePage implements OnInit {
     let timer
     //each time the number of accordions change all the gesture instances are recreated
     this.addbuttons.forEach(button => {
-
+      // console.log(button);
       let press = this.gestureCtrl.create({
         el: button.el,
         gestureName: 'press',
         onStart: (ev) => {
+          console.log('aaa');
 
           timeout = setTimeout(() => {
             timer = setInterval(() => {
+              this.metronome[button.el.id]++
 
+              console.log(this.metronome[button.el.id]++);
             }, 100)
           }, 2000);
         },
@@ -296,21 +303,14 @@ export class MetronomePage implements OnInit {
   //-------------------------------------------------------------------
   // aggiungono o tolgono 1 dai vari valori
   //-------------------------------------------------------------------
-  public remove(context) {
-    console.log(context);
-    this.metronome[context]--;
-
+  public removeBpm() {
+    this.metronome.bpm--;
     this.checkValues();
   }
-  public add(context) {
-    let tmp = context.split('.')
-    console.log(this.metronome[tmp[0]][tmp[1]]);
-    this.metronome[context]++;
-
-
+  public addBpm() {
+    this.metronome.bpm++;
     this.checkValues();
   }
-
   public trainRemoveBpm(type) {
     this.metronome.train[type]--;
     this.checkValues();
@@ -336,6 +336,7 @@ export class MetronomePage implements OnInit {
       i = this.colorArray.length
     }
     track.color = this.colorArray[i - 1]
+    this.checkValues();
   }
   public trackAddColor(track) {
     let i = this.colorArray.indexOf(track.color);
@@ -343,6 +344,7 @@ export class MetronomePage implements OnInit {
       i = -1;
     }
     track.color = this.colorArray[i + 1]
+    this.checkValues();
   }
   //-------------------------------------------------------------------
   // vanno avanti e indietro col suono del metronomo
@@ -353,6 +355,7 @@ export class MetronomePage implements OnInit {
       i = this.soundArray.length
     }
     track.sound = this.soundArray[i - 1]
+    this.checkValues();
   }
   public trackAddSound(track) {
     let i = this.soundArray.indexOf(track.sound);
@@ -360,6 +363,7 @@ export class MetronomePage implements OnInit {
       i = -1;
     }
     track.sound = this.soundArray[i + 1]
+    this.checkValues();
   }
 
   //-------------------------------------------------------------------
@@ -429,7 +433,8 @@ export class MetronomePage implements OnInit {
 
   ngAfterViewInit() {
     this.gestureDeleteMetronome();
-    console.log('aaa');
+    this.gestureLongPress()
+
 
     this.accordionList.changes.subscribe((res) => {
       this.gestureDeleteMetronome();

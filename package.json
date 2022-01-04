@@ -29,6 +29,7 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "@tonaljs/tonal": "^4.6.5",
+    "lodash": "^4.17.21",
     "rxjs": "~6.6.0",
     "swiper": "^7.2.0",
     "tonal": "^2.2.2",

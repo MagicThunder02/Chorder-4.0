@@ -38,10 +38,18 @@
     <ion-row>
 
       <ion-col size="12">
-        <ion-range [(ngModel)]="metronome.bpm" min="30" max="300" step="1" color="ruby" (ionChange)="checkValues()">
-          <remove-button slot="start" size="small" (removeEvent)="remove($event)" context="bpm"></remove-button>
+        <ion-range [(ngModel)]="metronome.bpm" min="30" max="300" step="1" color="ruby" (ionChange)="checkValues()"
+          debounce="10">
+          <ion-fab-button size="small" slot="start" [ngClass]="'action-button'" color="ruby" (click)="removeBpm()">
+            <ion-icon name="remove">
+            </ion-icon>
 
-          <add-button slot="end" size="small" (addEvent)="add($event)" context="bpm"></add-button>
+          </ion-fab-button>
+          <ion-fab-button #addbutton id="bpm" size="small" slot="end" [ngClass]="'action-button'" color="ruby"
+            (click)="addBpm()">
+            <ion-icon name="add"></ion-icon>
+
+          </ion-fab-button>
         </ion-range>
       </ion-col>
 
@@ -61,8 +69,9 @@
           <ion-text>{{metronome.train.final}}</ion-text>
         </ion-col>
         <ion-col size="2.5" class="center">
-          <add-button size="small" (addEvent)="add($event)" context="train.final"></add-button>
-
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('final')">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
         </ion-col>
       </ion-row>
 
@@ -79,7 +88,9 @@
           <ion-text>{{metronome.train.step}}</ion-text>
         </ion-col>
         <ion-col size="2.5" class="center">
-          <add-button size="small" (addEvent)="add($event)" context="train.step"></add-button>
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('step')">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
         </ion-col>
       </ion-row>
 
@@ -96,8 +107,9 @@
           <ion-text>{{metronome.train.measures}}</ion-text>
         </ion-col>
         <ion-col size="2.5" class="center">
-          <add-button size="small" (addEvent)="add($event)" context="train.measures"></add-button>
-
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('measures')">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
         </ion-col>
       </ion-row>
     </ng-container>
@@ -188,6 +200,13 @@
       </ion-col>
 
     </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <app-metro-modal [metronome]="metronome"></app-metro-modal>
+      </ion-col>
+    </ion-row>
+
   </ion-grid>
 
 

@@ -1,19 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ModalController, Platform } from '@ionic/angular';
 import * as Tone from 'tone'
 import { MetronomeModalInfoComponent } from '../modal-info/metronome-modal-info.component';
-
+import _ from "lodash"
 
 @Component({
   selector: 'app-metro-modal',
   templateUrl: './metro-modal.component.html',
   styleUrls: ['./metro-modal.component.scss'],
 })
-export class MetroModalComponent implements OnInit {
+export class MetroModalComponent {
 
-  @Input() inputMetronome
+  @Input() metronome  //metronomo 
+  public oldMetronome  //variabile guardata per il changedetection 
 
-  public metronome
+
+  public container       //variabile in cui setto il centro del metronomo
 
   public buttons = [
     {
@@ -46,7 +48,8 @@ export class MetroModalComponent implements OnInit {
   constructor(
     private modalController: ModalController,
     private platform: Platform,
-  ) { }
+  ) {
+  }
 
   //-------------------------------------------------------------------
   // torna alle impostazioni
@@ -91,7 +94,6 @@ export class MetroModalComponent implements OnInit {
   // go to info
   //-------------------------------------------------------------------
   public async goToInfo() {
-    this.stopMetronome()
 
     console.log('info!');
 
@@ -109,6 +111,19 @@ export class MetroModalComponent implements OnInit {
   //-----------------------------------------------------------------------------------------------------------------
   // INIZIO FUNZIONI DI DISEGNO
   //-----------------------------------------------------------------------------------------------------------------
+
+  //-------------------------------------------------------------------
+  // crea il contenitore del metronomo sulla base del div fornito
+  //-------------------------------------------------------------------
+  public calcContainer() {
+    let x0 = this.platform.width() / 2;
+    let y0 = x0;
+
+    this.container = {
+      x0: x0,
+      y0: y0,
+    }
+  }
 
   //-------------------------------------------------------------------
   // inizializza i disegni e ordina l'array delle tracks
@@ -153,8 +168,9 @@ export class MetroModalComponent implements OnInit {
       track.drawings.circle.diameter = this.platform.width() - spaceBetween;
 
       //genera il centro del cerchio su cui saranno le balls. All'altezza viene tolto un ulteriore terzo per i bottoni
-      let x0 = this.platform.width() / 2 - track.drawings.circle.diameter / 2
-      let y0 = this.platform.height() / 2 - track.drawings.circle.diameter / 2 + this.platform.height() / 8
+      let x0 = this.container.x0 - track.drawings.circle.diameter / 2
+      // let y0 = this.platform.height() / 2 - track.drawings.circle.diameter / 2 + this.platform.height() / 8
+      let y0 = this.container.y0 - track.drawings.circle.diameter / 2
 
       track.drawings.circle.cX = x0
       track.drawings.circle.cY = y0
@@ -173,8 +189,8 @@ export class MetroModalComponent implements OnInit {
 
       track.drawings.balls.forEach((ball, i) => {
         let angle = 2 * Math.PI / track.beats * i;
-        ball.cX = x0 + (track.drawings.circle.diameter / 2) * Math.cos(angle - Math.PI / 2) - track.drawings.balls[0].diameter / 2;
-        ball.cY = y0 + (track.drawings.circle.diameter / 2) * Math.sin(angle - Math.PI / 2) - track.drawings.balls[0].diameter / 2;
+        ball.cX = this.container.x0 + (track.drawings.circle.diameter / 2) * Math.cos(angle - Math.PI / 2) - track.drawings.balls[0].diameter / 2;
+        ball.cY = this.container.y0 + (track.drawings.circle.diameter / 2) * Math.sin(angle - Math.PI / 2) - track.drawings.balls[0].diameter / 2;
       })
     })
 
@@ -185,20 +201,26 @@ export class MetroModalComponent implements OnInit {
   //-------------------------------------------------------------------
   public animateBall(ball, color) {
     //prende il colore scuro o chiare a seconda di quale battito sia
-    if (this.metronome.tracks[0].drawings.balls.indexOf(ball) == 0) {
-      ball.color = `--ion-color-${color}-shade`;
-    }
-    else {
-      ball.color = `--ion-color-${color}`
-    }
-    //assegna la classe animata
-    ball.class = 'ball-animated';
+    try {
+      if (this.metronome.tracks[0].drawings.balls.indexOf(ball) == 0) {
+        ball.color = `--ion-color-${color}-shade`;
+      }
+      else {
+        ball.color = `--ion-color-${color}`
+      }
+      //assegna la classe animata
+      ball.class = 'ball-animated';
 
-    //dopo 0.5 secondi la toglie
-    setTimeout(() => {
-      ball.class = 'ball';
-      ball.color = '--ion-color-medium'
-    }, 500)
+      //dopo 0.5 secondi la toglie
+      setTimeout(() => {
+        ball.class = 'ball';
+        ball.color = '--ion-color-medium'
+      }, 500)
+
+    } catch (error) {
+      console.log(error);
+      this.resetMetronome();
+    }
 
   }
 
@@ -210,14 +232,13 @@ export class MetroModalComponent implements OnInit {
   public initializeMetronome() {
     this.metronome.tracks.forEach(track => {
       let sampler = new Tone.Sampler({
-        urls: {
-          C3: `${track.sound}C3.mp3`,
-          F2: `${track.sound}F2.mp3`,
-        },
-        baseUrl: "assets/instruments-sounds/"
+        C3: `assets/instruments-sounds/${track.sound}C3.mp3`,
+        F2: `assets/instruments-sounds/${track.sound}F2.mp3`,
+      },
+        {
+          onload: () => track.synth = sampler
+        }).toDestination();
 
-      }).toDestination();
-      track.synth = sampler;
     })
 
     Tone.Transport.bpm.value = this.metronome.bpm;
@@ -239,11 +260,15 @@ export class MetroModalComponent implements OnInit {
 
         //se il metronomo non è mutato
         if (!this.metronome.mute) {
-          if (ballIdx == 0) {
-            track.synth.triggerAttackRelease('C3', "4n", time);
-          }
-          else {
-            track.synth.triggerAttackRelease('F2', "4n", time);
+
+          //se il synth è disponibile
+          if (track.synth) {
+            if (ballIdx == 0) {
+              track.synth.triggerAttackRelease('C3', "4n", time);
+            }
+            else {
+              track.synth.triggerAttackRelease('F2', "4n", time);
+            }
           }
         }
 
@@ -303,46 +328,99 @@ export class MetroModalComponent implements OnInit {
     }
   }
 
-  public playMetronome() {
 
-    this.stopMetronome()
+  //spegne il metronomo
+  public stopMetronome() {
+    console.log('stop');
+    Tone.Transport.stop()
+    this.metronome.train.count = 0
+    Tone.Transport.cancel()
+
+    this.metronome.status = false;
+  }
+
+  //accende il metronomo
+  public startMetronome() {
+    console.log('start');
+    Tone.start()
 
     this.createLoop()
 
     Tone.Transport.position = 0;
     Tone.Transport.start();
-    console.log('start');
+
+    this.metronome.status = true;
+  }
+
+  //se il metronomo è acceso lo spegne e viceversa
+  public toggleMetronome() {
+    if (this.metronome.status) {
+      this.stopMetronome();
+    } else {
+      this.startMetronome();
+    }
+  }
+
+  //se il metronomo è acceso lo resetta
+  public resetMetronome() {
+    this.stopMetronome();
+    this.startMetronome();
+  }
+
+  ngDoCheck() {
+
+
+    //se cambia il bpm rigenera il metronomo
+    if (this.metronome.bpm != this.oldMetronome.bpm) {
+      this.oldMetronome = _.cloneDeep(this.metronome)
+      console.log("check");
+      this.refreshMetronome();
+    }
+    //se i battiti cambiano o vengono modificate le tracce rigenera il metronomo e lo restarta
+    if (this.metronome.tracks.some((track, idx) => {
+      if (this.metronome.tracks.length == this.oldMetronome.tracks.length) {
+        return track.beats != this.oldMetronome.tracks[idx].beats
+      } else {
+        return true
+      }
+    })) {
+      this.oldMetronome = _.cloneDeep(this.metronome)
+      this.refreshMetronome();
+      this.resetMetronome();
+    }
+
+    //se i suoni cambiano rigenera il metronomo 
+    if (this.metronome.tracks.some((track, idx) => {
+      if (this.oldMetronome.tracks[idx]) {
+        return track.sound != this.oldMetronome.tracks[idx].sound
+      } else {
+        return true
+      }
+    })) {
+      this.oldMetronome = _.cloneDeep(this.metronome)
+      this.refreshMetronome();
+    }
 
   }
 
-  public stopMetronome() {
-    Tone.Transport.stop()
+  refreshMetronome() {
+    console.log('start!');
 
-    this.metronome.train.count = 0
-
-    Tone.Transport.cancel()
-
-    console.log('stop');
-  }
-
-
-
-  ngOnInit() {
-    // root.style.setProperty('--mouse-x', e.clientX + "px");
-
-    this.metronome = { ...this.inputMetronome }
-
+    this.calcContainer();
 
     this.inizializeDrawings();
     this.calcBallsRadius();
     this.calcCircleRadius();
     this.calcBallsPosition();
 
-    Tone.start()
-    this.initializeMetronome()
+    this.initializeMetronome();
 
     console.log('tracks:', this.metronome.tracks);
 
   }
 
+  ngOnInit() {
+    this.oldMetronome = _.cloneDeep(this.metronome)
+    this.refreshMetronome();
+  }
 }
