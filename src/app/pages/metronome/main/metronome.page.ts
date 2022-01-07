@@ -43,7 +43,7 @@ export class MetronomePage implements OnInit {
   ]
 
   public colorArray: string[] = ['dark', 'primary', 'secondary', 'tertiary', 'ruby', 'warning', 'success'];
-  public soundArray: string[] = ['woodblock', 'whip', 'snare'];
+  public soundArray: string[] = ['woodblock', 'note', 'snare', "cymbals"];
   public metronomeCounter: number = 1;
   public gestureArray: Gesture[] = [];
 
@@ -114,7 +114,6 @@ export class MetronomePage implements OnInit {
 
     }
 
-    this.checkValues();
     console.log('add!');
 
   }
@@ -122,9 +121,10 @@ export class MetronomePage implements OnInit {
   // cancella l'ulitmo metronomo
   //-------------------------------------------------------------------
   public deleteMetro() {
-    this.metronome.tracks.pop()
-    this.checkValues();
-    console.log('delete!');
+    if (this.metronome.tracks.length > 1) {
+      this.metronome.tracks.pop()
+      console.log('delete!');
+    }
   }
   //-------------------------------------------------------------------
   // apre le info 

@@ -232,23 +232,28 @@ export class MetroModalComponent {
   public initializeMetronome() {
     this.metronome.tracks.forEach(track => {
       let sampler = new Tone.Sampler({
-        C3: `assets/instruments-sounds/${track.sound}C3.mp3`,
-        F2: `assets/instruments-sounds/${track.sound}F2.mp3`,
+        C3: `assets/instruments-sounds/metronome/${track.sound}.wav`,
       },
         {
           onload: () => track.synth = sampler
         }).toDestination();
 
+      // track.synth = new Tone.Player(`assets/instruments-sounds/${track.sound}C3.mp3`).toDestination();
     })
 
     Tone.Transport.bpm.value = this.metronome.bpm;
+
   }
 
   public createLoop() {
+
+
+
     //il tempo master è quello del primo metronomo (quello con più battiti)
     //https://toolstud.io/music/bpm.php?bpm=120&bpm_unit=8%2F4
     let beatTime = 60 / this.metronome.bpm * this.metronome.tracks[0].beats;
     this.metronome.train.count = 0;
+
 
 
     this.metronome.tracks.forEach((track, i) => {
@@ -268,6 +273,7 @@ export class MetroModalComponent {
             }
             else {
               track.synth.triggerAttackRelease('F2', "4n", time);
+
             }
           }
         }
@@ -279,7 +285,6 @@ export class MetroModalComponent {
 
         // console.log('idx', ballIdx);
         ballIdx++;
-
         this.increaseBpm()
 
 
@@ -367,8 +372,8 @@ export class MetroModalComponent {
     this.startMetronome();
   }
 
+  //controlla quali parametri cambiano ogni tick
   ngDoCheck() {
-
 
     //se cambia il bpm rigenera il metronomo
     if (this.metronome.bpm != this.oldMetronome.bpm) {
@@ -403,6 +408,7 @@ export class MetroModalComponent {
 
   }
 
+  //ridisegna tutto e inizializza il synth
   refreshMetronome() {
     console.log('start!');
 
