@@ -3,7 +3,6 @@ import { GlobalService } from '../services/global.service';
 
 @Pipe({
   name: 'musicNotation',
-  // pure: false
 })
 export class MusicNotationPipe implements PipeTransform {
 

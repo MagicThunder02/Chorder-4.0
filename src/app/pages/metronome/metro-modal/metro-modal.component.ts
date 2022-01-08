@@ -15,99 +15,12 @@ export class MetroModalComponent {
   public oldMetronome  //variabile guardata per il changedetection 
 
 
-  public container       //variabile in cui setto il centro del metronomo
-
-  public buttons = [
-    {
-      name: 'back',
-      icon: 'arrow-back',
-      color: 'ruby',
-      action: () => this.goBack(),
-    },
-    {
-      name: 'animations',
-      icon: 'eye',
-      color: 'ruby',
-      action: () => this.animateMetro(),
-    },
-    {
-      name: 'mute',
-      icon: 'volume-high',
-      color: 'ruby',
-      action: () => this.muteMetro(),
-    },
-    {
-      name: 'info',
-      icon: 'information',
-      color: 'ruby',
-      action: () => this.goToInfo()
-    }
-  ]
-
+  public container //variabile in cui setto il centro del metronomo
 
   constructor(
-    private modalController: ModalController,
     private platform: Platform,
   ) {
   }
-
-  //-------------------------------------------------------------------
-  // torna alle impostazioni
-  //-------------------------------------------------------------------
-  public goBack() {
-    Tone.Transport.stop()
-    Tone.Transport.cancel()
-    this.modalController.dismiss()
-    console.log('go back!');
-  }
-  //-------------------------------------------------------------------
-  // toggla l'animazione del metronomo
-  //-------------------------------------------------------------------
-  public animateMetro() {
-    console.log('animate!');
-    this.metronome.animation = !this.metronome.animation;
-    let button = this.buttons.find(button => button.name == 'animate')
-    if (this.metronome.animation) {
-      button.color = 'ruby';
-      button.icon = 'eye';
-    } else {
-      button.color = 'light';
-      button.icon = 'eye-off';
-    }
-  }
-  //-------------------------------------------------------------------
-  // toggla il suono del metronomo
-  //-------------------------------------------------------------------
-  public muteMetro() {
-    console.log('mute!');
-    this.metronome.mute = !this.metronome.mute;
-    let button = this.buttons.find(button => button.name == 'mute')
-    if (!this.metronome.mute) {
-      button.color = 'ruby';
-      button.icon = 'volume-high';
-    } else {
-      button.color = 'light';
-      button.icon = 'volume-mute';
-    }
-  }
-  //-------------------------------------------------------------------
-  // go to info
-  //-------------------------------------------------------------------
-  public async goToInfo() {
-
-    console.log('info!');
-
-    const modal = await this.modalController.create({
-      component: MetronomeModalInfoComponent,
-      componentProps: {
-        buttons: this.buttons
-      },
-      cssClass: 'fullscreen',
-    });
-    return await modal.present();
-  }
-
-
   //-----------------------------------------------------------------------------------------------------------------
   // INIZIO FUNZIONI DI DISEGNO
   //-----------------------------------------------------------------------------------------------------------------
@@ -368,8 +281,10 @@ export class MetroModalComponent {
 
   //se il metronomo è acceso lo resetta
   public resetMetronome() {
-    this.stopMetronome();
-    this.startMetronome();
+    if (this.metronome.status == true) {
+      this.stopMetronome();
+      this.startMetronome();
+    }
   }
 
   //controlla quali parametri cambiano ogni tick

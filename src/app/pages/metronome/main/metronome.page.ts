@@ -3,6 +3,7 @@ import { Gesture, GestureController, ModalController, Platform } from '@ionic/an
 import { MetronomeInfoComponent } from '../info/metronome-info.component';
 import { MetroModalComponent } from '../metro-modal/metro-modal.component';
 
+
 @Component({
   selector: 'app-metronome',
   templateUrl: './metronome.page.html',
@@ -23,16 +24,16 @@ export class MetronomePage implements OnInit {
       action: () => this.addMetronome(),
     },
     {
-      name: 'delete',
-      icon: 'trash',
+      name: 'animations',
+      icon: 'eye',
       color: 'ruby',
-      action: () => this.deleteMetro(),
+      action: () => this.animateMetro(),
     },
     {
-      name: 'play',
-      icon: 'play',
+      name: 'mute',
+      icon: 'volume-high',
       color: 'ruby',
-      action: () => this.playMetronome(),
+      action: () => this.muteMetro(),
     },
     {
       name: 'info',
@@ -115,7 +116,14 @@ export class MetronomePage implements OnInit {
     }
 
     console.log('add!');
+  }
 
+  onPress($event) {
+    console.log("onPress", $event);
+  }
+
+  onPressUp($event) {
+    console.log("onPressUp", $event);
   }
   //-------------------------------------------------------------------
   // cancella l'ulitmo metronomo
@@ -124,6 +132,21 @@ export class MetronomePage implements OnInit {
     if (this.metronome.tracks.length > 1) {
       this.metronome.tracks.pop()
       console.log('delete!');
+    }
+  }
+  //-------------------------------------------------------------------
+  // toggla l'animazione del metronomo
+  //-------------------------------------------------------------------
+  public animateMetro() {
+    console.log('animate!');
+    this.metronome.animation = !this.metronome.animation;
+    let button = this.buttons.find(button => button.name == 'animations')
+    if (this.metronome.animation) {
+      button.color = 'ruby';
+      button.icon = 'eye';
+    } else {
+      button.color = 'light';
+      button.icon = 'eye-off';
     }
   }
   //-------------------------------------------------------------------
@@ -142,22 +165,18 @@ export class MetronomePage implements OnInit {
   }
 
   //-------------------------------------------------------------------
-  // apre la modal 
+  // toggla il suono del metronomo
   //-------------------------------------------------------------------
-  public async playMetronome() {
-    if (this.metronome.tracks.length > 0) {
-
-
-      const modal = await this.modalController.create({
-        component: MetroModalComponent,
-        cssClass: 'fullscreen',
-        componentProps: {
-          inputMetronome: this.metronome,
-        }
-      });
-
-      console.log('play!');
-      return await modal.present();
+  public muteMetro() {
+    console.log('mute!');
+    this.metronome.mute = !this.metronome.mute;
+    let button = this.buttons.find(button => button.name == 'mute')
+    if (!this.metronome.mute) {
+      button.color = 'ruby';
+      button.icon = 'volume-high';
+    } else {
+      button.color = 'light';
+      button.icon = 'volume-mute';
     }
   }
 

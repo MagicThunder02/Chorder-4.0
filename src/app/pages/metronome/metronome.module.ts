@@ -11,6 +11,8 @@ import { MetroModalComponent } from './metro-modal/metro-modal.component';
 import { MetronomeInfoComponent } from './info/metronome-info.component';
 import { MetronomeModalInfoComponent } from './modal-info/metronome-modal-info.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { HammerModule } from '@angular/platform-browser';
+import { LongpressDirective } from 'src/app/services/longpress.directive';
 
 const routes: Routes = [
   {
@@ -28,6 +30,6 @@ const routes: Routes = [
     TranslateModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MetronomePage, MetronomeInfoComponent, MetroModalComponent, MetronomeModalInfoComponent]
+  declarations: [MetronomePage, MetronomeInfoComponent, MetroModalComponent, MetronomeModalInfoComponent, LongpressDirective]
 })
 export class MetronomePageModule { }

@@ -40,13 +40,14 @@
       <ion-col size="12">
         <ion-range [(ngModel)]="metronome.bpm" min="30" max="300" step="1" color="ruby" (ionChange)="checkValues()"
           debounce="10">
-          <ion-fab-button size="small" slot="start" [ngClass]="'action-button'" color="ruby" (click)="removeBpm()">
+          <ion-fab-button size="small" slot="start" [ngClass]="'action-button'" color="ruby" (click)="removeBpm()"
+            longpress (press)="removeBpm()">
             <ion-icon name="remove">
             </ion-icon>
 
           </ion-fab-button>
           <ion-fab-button #addbutton id="bpm" size="small" slot="end" [ngClass]="'action-button'" color="ruby"
-            (click)="addBpm()">
+            (click)="addBpm()" longpress (press)="addBpm()">
             <ion-icon name="add"></ion-icon>
 
           </ion-fab-button>
@@ -61,7 +62,8 @@
           <ion-text class="side-text">{{ 'metronome.main.final' | translate }}</ion-text>
         </ion-col>
         <ion-col size="2.5" class="center">
-          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('final')">
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('final')" longpress
+            (press)="trainRemoveBpm('final')">
             <ion-icon name="remove"></ion-icon>
           </ion-fab-button>
         </ion-col>
@@ -69,7 +71,8 @@
           <ion-text>{{metronome.train.final}}</ion-text>
         </ion-col>
         <ion-col size="2.5" class="center">
-          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('final')">
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('final')" longpress
+            (press)="trainAddBpm('final')">
             <ion-icon name="add"></ion-icon>
           </ion-fab-button>
         </ion-col>
@@ -80,7 +83,8 @@
           <ion-text class="side-text">{{'metronome.main.step' | translate }}</ion-text>
         </ion-col>
         <ion-col size="2.5" class="center">
-          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('step')">
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('step')" longpress
+            (press)="trainRemoveBpm('step')">
             <ion-icon name="remove"></ion-icon>
           </ion-fab-button>
         </ion-col>
@@ -88,7 +92,8 @@
           <ion-text>{{metronome.train.step}}</ion-text>
         </ion-col>
         <ion-col size="2.5" class="center">
-          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('step')">
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('step')" longpress
+            (press)="trainAddBpm('step')">
             <ion-icon name="add"></ion-icon>
           </ion-fab-button>
         </ion-col>
@@ -99,7 +104,8 @@
           <ion-text class="side-text">{{'metronome.main.measures' | translate }}</ion-text>
         </ion-col>
         <ion-col size="2.5" class="center">
-          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('measures')">
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainRemoveBpm('measures')" longpress
+            (press)="trainRemoveBpm('measures')">
             <ion-icon name="remove"></ion-icon>
           </ion-fab-button>
         </ion-col>
@@ -107,7 +113,8 @@
           <ion-text>{{metronome.train.measures}}</ion-text>
         </ion-col>
         <ion-col size="2.5" class="center">
-          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('measures')">
+          <ion-fab-button size="small" color="ruby" class="action-button" (click)="trainAddBpm('measures')" longpress
+            (press)="trainAddBpm('measures')">
             <ion-icon name="add"></ion-icon>
           </ion-fab-button>
         </ion-col>
@@ -135,7 +142,8 @@
                     <ion-text class="side-text">{{'metronome.main.beats' | translate }}</ion-text>
                   </ion-col>
                   <ion-col size="7/3" class="ion-no-padding">
-                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveBeat(track)">
+                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveBeat(track)"
+                      longpress (press)="trackRemoveBeat(track)">
                       <ion-icon name="remove"></ion-icon>
                     </ion-fab-button>
                   </ion-col>
@@ -143,7 +151,8 @@
                     <ion-text>{{track.beats}}</ion-text>
                   </ion-col>
                   <ion-col size="7/3" class="ion-no-padding">
-                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackAddBeat(track)">
+                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackAddBeat(track)"
+                      longpress (press)="trackAddBeat(track)">
                       <ion-icon name="add"></ion-icon>
                     </ion-fab-button>
                   </ion-col>
@@ -154,7 +163,8 @@
                     <ion-text class="side-text">{{'metronome.main.color' | translate }}</ion-text>
                   </ion-col>
                   <ion-col size="7/3" class="center ion-no-padding">
-                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveColor(track)">
+                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveColor(track)"
+                      longpress (press)="trackAddColor(track)">
                       <ion-icon name="caret-back"></ion-icon>
                     </ion-fab-button>
                   </ion-col>
@@ -164,7 +174,8 @@
                     </ion-fab-button>
                   </ion-col>
                   <ion-col size="7/3" class="center ion-no-padding">
-                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackAddColor(track)">
+                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackAddColor(track)"
+                      longpress (press)="trackAddColor(track)">
                       <ion-icon name="caret-forward"></ion-icon>
                     </ion-fab-button>
                   </ion-col>
@@ -175,7 +186,8 @@
                     <ion-text class="side-text">{{'metronome.main.sound' | translate }}</ion-text>
                   </ion-col>
                   <ion-col size="7/3" class="ion-no-padding">
-                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveSound(track)">
+                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackRemoveSound(track)"
+                      longpress (press)="trackAddSound(track)">
                       <ion-icon name="caret-back"></ion-icon>
                     </ion-fab-button>
                   </ion-col>
@@ -185,7 +197,8 @@
                     </ion-icon>
                   </ion-col>
                   <ion-col size="7/3" class="ion-no-padding">
-                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackAddSound(track)">
+                    <ion-fab-button size="small" color="ruby" class="action-button" (click)="trackAddSound(track)"
+                      longpress (press)="trackAddSound(track)">
                       <ion-icon name="caret-forward"></ion-icon>
                     </ion-fab-button>
                   </ion-col>

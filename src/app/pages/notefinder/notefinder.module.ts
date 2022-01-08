@@ -30,7 +30,6 @@ const routes: Routes = [
     ComponentsModule,
     TranslateModule,
     RouterModule.forChild(routes)
-
   ],
   declarations: [NotefinderPage, NotefinderInfoComponent]
 
