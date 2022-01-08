@@ -118,13 +118,6 @@ export class MetronomePage implements OnInit {
     console.log('add!');
   }
 
-  onPress($event) {
-    console.log("onPress", $event);
-  }
-
-  onPressUp($event) {
-    console.log("onPressUp", $event);
-  }
   //-------------------------------------------------------------------
   // cancella l'ulitmo metronomo
   //-------------------------------------------------------------------
@@ -178,76 +171,6 @@ export class MetronomePage implements OnInit {
       button.color = 'light';
       button.icon = 'volume-mute';
     }
-  }
-
-  //-------------------------------------------------------------------
-  // gestisce la cancellazione dei metronomi
-  //-------------------------------------------------------------------
-  public gestureDeleteMetronome() {
-    this.gestureArray.map((gesture) => gesture.destroy());
-    this.gestureArray = [];
-
-    //each time the number of accordions change all the gesture instances are recreated
-    this.accordionList.forEach(accordion => {
-
-      let drag = this.gestureCtrl.create({
-        el: accordion.el,
-        threshold: 20,
-        direction: 'x',
-        gestureName: 'drag',
-
-        onMove: (ev) => {
-          //translate horizonatally
-          accordion.el.style.transform = `translate(${ev.deltaX}px, 0)`;
-        },
-
-        onEnd: (ev) => {
-
-          //if the accordion is abose half the page width it gets cancelled else it gers back to its position
-          if (Math.abs(ev.deltaX) < this.platform.width() / 2) {
-            accordion.el.style.transform = `translate(0, 0)`;
-          }
-          else {
-            console.log('bye');
-            this.metronome.tracks.splice(accordion.el.id, 1)
-          }
-        },
-      });
-
-      drag.enable();
-      this.gestureArray.push(drag);
-    });
-  }
-
-
-  //-------------------------------------------------------------------
-  // gestisce la cancellazione dei metronomi
-  //-------------------------------------------------------------------
-  public gestureLongPress() {
-
-    let timeout
-    let timer
-    //each time the number of accordions change all the gesture instances are recreated
-    this.addbuttons.forEach(button => {
-      // console.log(button);
-      let press = this.gestureCtrl.create({
-        el: button.el,
-        gestureName: 'press',
-        onStart: (ev) => {
-          console.log('aaa');
-
-          timeout = setTimeout(() => {
-            timer = setInterval(() => {
-              this.metronome[button.el.id]++
-
-              console.log(this.metronome[button.el.id]++);
-            }, 100)
-          }, 2000);
-        },
-      });
-
-      press.enable();
-    });
   }
 
 
@@ -445,19 +368,8 @@ export class MetronomePage implements OnInit {
 
   }
 
-
   ngOnInit() {
 
-  }
-
-  ngAfterViewInit() {
-    this.gestureDeleteMetronome();
-    this.gestureLongPress()
-
-
-    this.accordionList.changes.subscribe((res) => {
-      this.gestureDeleteMetronome();
-    });
   }
 
 }
