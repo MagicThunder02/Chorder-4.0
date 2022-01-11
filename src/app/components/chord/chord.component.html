@@ -124,6 +124,37 @@
     </ion-card>
 
 
+    <ion-card class="detail" *ngIf="chord.scales.length != 0">
+      <ion-card-header>
+        <ion-card-subtitle class="subtitle"> {{ 'Scales' | uppercase }} </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+
+              <ng-container *ngIf="!chord.showScales">
+                <ion-chip *ngFor="let scale of chord.scales.slice(0, 3)" color="dark" outline="true">
+                  {{ scale | titlecase }}
+                </ion-chip>
+              </ng-container>
+
+              <ng-container *ngIf="chord.showScales">
+                <ion-chip *ngFor="let scale of chord.scales" color="dark" outline="true">
+                  {{ scale | titlecase }}
+                </ion-chip>
+              </ng-container>
+
+
+              <ion-icon *ngIf="chord.scales.length > 3" name="ellipsis-horizontal" style="margin-left: 0.5rem;"
+                (click)="chord.showScales = !chord.showScales"></ion-icon>
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
     <ion-card class="detail">
       <ion-card-header>
         <ion-card-subtitle class="subtitle"> {{ 'Transpose' | uppercase }} </ion-card-subtitle>

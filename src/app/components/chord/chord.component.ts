@@ -86,8 +86,13 @@ export class ChordComponent implements OnInit {
     //aggiunge estensioni e riduzioni all'accordo e i rispettivi toggle
     this.chord.extensions = Chord.extended(this.chord.symbol);
     this.chord.reductions = Chord.reduced(this.chord.symbol);
+
+    //aggiunge le scale di riferimento per quell'accordo
+    this.chord.scales = Chord.chordScales(this.chord.symbol);
+
     this.chord.showExtensions = false;
     this.chord.showReductions = false;
+    this.chord.showScales = false;
 
     //inizializza l'accordo per la trasposizione
     this.chord.transposition = this.chord.symbol;
