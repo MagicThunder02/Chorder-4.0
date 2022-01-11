@@ -128,8 +128,9 @@
       <ion-col size="12">
 
         <ion-accordion-group>
-          <ion-accordion [value]="track.name" class="track" [id]="metronome.tracks.indexOf(track)"
-            *ngFor="let track of metronome.tracks" #accordion>
+          <ion-accordion #accordion [value]="track.name" class="track" drag
+            (drag)="deleteMetronome(metronome.tracks.indexOf(track))" [elementRef]="accordion"
+            *ngFor="let track of metronome.tracks">
             <ion-item slot="header" style="--background: var(--ion-color-light);">
               <!-- <ion-input [(ngModel)]="track.name"></ion-input> -->
               <ion-label> {{'metronome.main.metronome' | translate }} {{ '#' + track.name }} </ion-label>

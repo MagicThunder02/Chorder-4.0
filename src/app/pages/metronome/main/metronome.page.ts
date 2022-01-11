@@ -114,19 +114,57 @@ export class MetronomePage implements OnInit {
       })
 
     }
-
+    // this.gestureDeleteMetronome()
     console.log('add!');
   }
 
   //-------------------------------------------------------------------
-  // cancella l'ulitmo metronomo
+  // cancella un metronomo
   //-------------------------------------------------------------------
-  public deleteMetro() {
+  public deleteMetronome(id) {
+    console.log('delete!', id);
     if (this.metronome.tracks.length > 1) {
-      this.metronome.tracks.pop()
-      console.log('delete!');
+      this.metronome.tracks.splice(id, 1)
     }
   }
+  // public gestureDeleteMetronome() {
+  //   this.gestureArray.map((gesture) => gesture.destroy());
+  //   this.gestureArray = [];
+  //   //each time the number of accordions change all the gesture instances are recreated
+  //   this.accordionList.forEach(accordion => {
+
+  //     console.log(this.accordionList, accordion.el);
+
+  //     let drag = this.gestureCtrl.create({
+  //       el: accordion.el,
+  //       threshold: 20,
+  //       direction: 'x',
+  //       gestureName: 'drag',
+
+  //       onMove: (ev) => {
+  //         //translate horizonatally
+  //         accordion.el.style.transform = `translate(${ev.deltaX}px, 0)`;
+  //       },
+
+  //       onEnd: (ev) => {
+
+  //         //if the accordion is abose half the page width it gets cancelled else it gers back to its position
+  //         if (Math.abs(ev.deltaX) < this.platform.width() / 2) {
+  //           accordion.el.style.transform = `translate(0, 0)`;
+  //         }
+  //         else {
+  //           console.log('bye');
+  //           this.deleteMetronome(accordion.el.id)
+  //           accordion.el.style.transform = `translate(0, 0)`;
+  //         }
+  //       },
+  //     });
+
+  //     drag.enable();
+  //     this.gestureArray.push(drag);
+  //   });
+  // }
+
   //-------------------------------------------------------------------
   // toggla l'animazione del metronomo
   //-------------------------------------------------------------------
@@ -370,6 +408,10 @@ export class MetronomePage implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  ionViewWillEnter() {
+    // this.gestureDeleteMetronome()
   }
 
 }
