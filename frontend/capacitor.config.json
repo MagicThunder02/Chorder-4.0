@@ -1,0 +1,14 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Chorder",
+	"webDir": "www",
+	"bundledWebRuntime": false,
+	"plugins": {
+		"SplashScreen": {
+			"androidScaleType": "CENTER_INSIDE",
+			"backgroundColor": "#EDF2F4",
+			"launchShowDuration": 2500,
+			"launchAutoHide": true
+		}
+	}
+}

@@ -1,0 +1,45 @@
+.side-text {
+    color: var(--ion-color-dark);
+    font-size: large;
+
+}
+
+.track {
+    border-radius: 15px;
+
+    background-color: var(--ion-color-light);
+    --background: var(--ion-color-light);
+
+    margin-top: 1rem;
+}
+
+.dark {
+    border: 3px solid var(--ion-color-dark);
+}
+.primary {
+    border: 3px solid var(--ion-color-primary);
+}
+.secondary {
+    border: 3px solid var(--ion-color-secondary);
+}
+.tertiary {
+    border: 3px solid var(--ion-color-tertiary);
+}
+.ruby {
+    border: 3px solid var(--ion-color-ruby);
+}
+.salmon {
+    border: 3px solid var(--ion-color-salmon);
+}
+.warning {
+    border: 3px solid var(--ion-color-warning);
+}
+.success {
+    border: 3px solid var(--ion-color-success);
+}
+
+
+// *{
+//     padding-top: 0;
+//     padding-bottom: 0;
+// }

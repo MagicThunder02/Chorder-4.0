@@ -1,0 +1,111 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+@import "~swiper/css/bundle";
+
+ion-searchbar {
+    .searchbar-input-container {
+        input{
+            font-size: large !important;
+        }
+    }
+}
+
+.ion-color-salmon {
+    --ion-color-base: var(--ion-color-salmon);
+    --ion-color-base-rgb: var(--ion-color-salmon-rgb);
+    --ion-color-contrast: var(--ion-color-salmon-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-salmon-contrast-rgb);
+    --ion-color-shade: var(--ion-color-salmon-shade);
+    --ion-color-tint: var(--ion-color-salmon-tint);
+}
+
+.ion-color-ruby {
+    --ion-color-base: var(--ion-color-ruby);
+    --ion-color-base-rgb: var(--ion-color-ruby-rgb);
+    --ion-color-contrast: var(--ion-color-ruby-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-ruby-contrast-rgb);
+    --ion-color-shade: var(--ion-color-ruby-shade);
+    --ion-color-tint: var(--ion-color-ruby-tint);
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+
+.action-button {
+ 
+    --border-radius: 50%;
+    border-radius: 50%;
+
+    font-size: larger;
+    font-weight: 600;
+
+    --box-shadow: none;
+    --background-activated: auto;
+    opacity: 1 !important;
+  }
+
+.tile-light {
+    background-color: var(--ion-color-light);
+    --background: var(--ion-color-light);
+    border: solid 3px var(--ion-color-medium);
+    --color: var(--ion-color-medium);
+}
+.tile-ruby {
+    background-color: var(--ion-color-ruby);
+   --background: var(--ion-color-ruby);
+    border: solid 3px var(--ion-color-ruby);
+    --color: var(--ion-color-light);
+}
+.tile-salmon {
+    background-color: var(--ion-color-salmon);
+   --background: var(--ion-color-salmon);
+    border: solid 3px var(--ion-color-salmon);
+    --color: var(--ion-color-light);
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bpmNumber {
+    width: 28vmin;
+    height: 28vmin;
+
+    border: 3px solid var(--ion-color-ruby);
+
+    font-size: x-large;
+    --color: var(--ion-color-dark);
+}
+
+ion-content, ion-tab-bar, ion-footer, ion-list{
+    --background: var(--ion-color-light);
+}

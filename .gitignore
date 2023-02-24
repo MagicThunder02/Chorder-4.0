@@ -1,3 +1,13 @@
+#gitignore del repository chorder4.0
+backend/client/
+backend/dist/
+backend/node_modules/
+
+frontend/e2e/
+frontend/node_modules/
+frontend/resources/
+
+
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
 
@@ -31,3 +41,4 @@ npm-debug.log*
 /www
 /android
 /resources
+

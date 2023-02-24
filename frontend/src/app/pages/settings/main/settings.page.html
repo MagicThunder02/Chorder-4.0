@@ -1,0 +1,134 @@
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="center">
+        <ion-card class="center tile-light" style="width: 100%;">
+          <ion-card-header>
+            <ion-card-title color="dark">{{'settings.main.title' | translate}}</ion-card-title>
+          </ion-card-header>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid #generic>
+    <ion-row>
+      <ion-col>
+        <ion-title>{{'settings.main.generic' | translate}}</ion-title>
+      </ion-col>
+    </ion-row>
+
+    <ion-row #language>
+      <ion-col>
+        <ion-accordion-group [value]="global.language">
+          <ion-accordion value="languages" class="option">
+            <ion-item slot="header">
+              <ion-avatar slot="start">
+                <img src="/assets/flags/{{global.language}}.svg">
+              </ion-avatar>
+              <ion-label> {{'settings.main.language' | translate}} </ion-label>
+            </ion-item>
+
+            <ion-list slot="content">
+
+              <ion-item *ngFor="let language of languages" (click)="setLanguage(language)">
+                <ion-avatar slot="start">
+                  <img src="/assets/flags/{{language}}.svg">
+                </ion-avatar>
+                <ion-label> {{'settings.main.'+language | translate}} </ion-label>
+              </ion-item>
+
+            </ion-list>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-col>
+    </ion-row>
+
+    <ion-row #notation>
+      <ion-col>
+        <ion-accordion-group [value]="global.notation">
+          <ion-accordion value="notations" class="option">
+            <ion-item slot="header">
+              <ion-avatar slot="start">
+                <img src="/assets/flags/{{global.notation}}.svg">
+              </ion-avatar>
+              <ion-label> {{'settings.main.notation' | translate}} </ion-label>
+            </ion-item>
+
+            <ion-list slot="content">
+
+              <ion-item *ngFor="let notation of notations" (click)="setNotation(notation)">
+                <ion-avatar slot="start">
+                  <img src="/assets/flags/{{notation}}.svg">
+                </ion-avatar>
+                <ion-label> {{'settings.main.'+notation | translate}}</ion-label>
+              </ion-item>
+
+            </ion-list>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="option" lines="none">
+          <ion-icon name="moon" slot="start"></ion-icon>
+          <ion-label>{{'settings.main.darkmode' | translate}}</ion-label>
+
+          <ion-toggle slot="end" color="ruby" [(ngModel)]="global.darkmode" (ionChange)="setDarkmode()"></ion-toggle>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- <ion-grid #chordmaker>
+    <ion-row>
+      <ion-col>
+        <ion-title>Chordmaker</ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid #notefinder>
+    <ion-row>
+      <ion-col>
+        <ion-title>Notefinder</ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid #metronome>
+    <ion-row>
+      <ion-col>
+        <ion-title>Metronome</ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-accordion-group>
+          <ion-accordion value="colors" class="option">
+            <ion-item slot="header">
+              <ion-label>Languages</ion-label>
+            </ion-item>
+
+            <ion-list slot="content">
+              <ion-item>
+                <ion-label>Italian </ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-label>English</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-accordion>
+        </ion-accordion-group>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <div style="position: fixed; bottom: 1em; width: 100%;" class="center">
+    <ion-text class="center" style="font-size: small; text-align: center;" color="dark"> App by Matteo Savina
+      <br> matteo.savina@gmail.com
+    </ion-text>
+  </div>
+</ion-content>
